@@ -1,23 +1,23 @@
 import { AppSidebar } from "@/components/ui/app-sidebar";
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SiteHeader } from "@/components/ui/site-header";
 import { auth } from "@/lib/auth/auth";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-
 export const metadata: Metadata = {
   title: "Dashboard-Admin",
-  description: "Dashboard DDA BPS",
+  description: "Dashboard",
 };
-export default async function Layout({ children }: { children: React.ReactNode }) {
-    const session = await auth();
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await auth();
 
   if (!session) {
-    redirect("/login-dashboard"); 
+    redirect("/login");
   }
   return (
     <SidebarProvider
@@ -37,7 +37,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
               {/* <SectionCards /> */}
               <div className="px-4 lg:px-6">
                 {/* <ChartAreaInteractive /> */}
-              {children}
+                {children}
               </div>
             </div>
           </div>

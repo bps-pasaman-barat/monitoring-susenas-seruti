@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Menu",
-  description: "FORM DDA BPS",
+  description: "",
 };
 
 export default function RootLayout({

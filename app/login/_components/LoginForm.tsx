@@ -6,7 +6,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -46,7 +45,7 @@ export function LoginForm() {
         redirect: false,
         username: values.username,
         password: values.password,
-        callbackUrl: "/dashboard",
+        callbackUrl: "/",
       });
 
       if (res?.error) {
@@ -68,9 +67,9 @@ export function LoginForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
             <div className="flex flex-col items-center text-center">
-              <h1 className="text-2xl font-bold">Welcome Back</h1>
+              <h1 className="text-2xl font-bold">Selamat datang</h1>
               <p className="text-balance text-muted-foreground">
-                Login to dashboard
+                Halaman Login
               </p>
             </div>
 

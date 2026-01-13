@@ -6,7 +6,7 @@ import { getUsername } from "./user";
 
 export const authConfig = {
   pages: {
-    signIn: "/login-dashboard",
+    signIn: "/login",
     error: "/auth-error",
   },
   providers: [

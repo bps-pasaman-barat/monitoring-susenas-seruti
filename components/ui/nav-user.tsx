@@ -24,7 +24,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { SignOutButton } from "../common/boilerplate/SignOut";
+import { SignOutButton } from "../boilerplate/SignOut";
+
 
 export function NavUser() {
   const { isMobile } = useSidebar();
