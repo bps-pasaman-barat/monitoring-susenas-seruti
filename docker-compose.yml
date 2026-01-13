@@ -1,0 +1,17 @@
+
+services:
+  susesnas_db:
+    image: postgres:16
+    container_name: susenas_dev
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db_susenas
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgsusenas:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgsusenas:
