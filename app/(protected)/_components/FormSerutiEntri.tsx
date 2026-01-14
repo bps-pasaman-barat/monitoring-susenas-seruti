@@ -21,7 +21,7 @@ export default function FormSerutiEntri() {
       no_ruta: "",
       provinsi: "",
       sls: "",
-      tgl_entri: new Date(),
+      tgl_entri: undefined,
     },
   });
 
@@ -65,12 +65,12 @@ export default function FormSerutiEntri() {
                   name="nama_petugas_entri"
                   label="Nama Petugas Entri"
                 />
+                <InputDateField
+                  form={form}
+                  label="Tanggal Di-Entri"
+                  name="tgl_entri"
+                />
               </div>
-              <InputDateField
-                form={form}
-                label="Tanggal Di-Entri"
-                name="tgl_entri"
-              />
 
               <Button type="submit" className="w-full">
                 Simpan

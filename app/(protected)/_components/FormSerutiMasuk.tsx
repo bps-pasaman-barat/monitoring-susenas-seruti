@@ -82,12 +82,12 @@ export default function FormSerutiMasuk() {
                 <InputTextField form={form} name="nama_PML" label="Nama PML" />
                 <InputTextField form={form} name="nama_PPL" label="Nama PPL" />
                 <InputTextField form={form} name="no_ruta" label="Nomor Ruta" />
+              </div>
                 <InputDateField
                   form={form}
                   label="Tanggal pemasukan"
                   name="tgl_masuk"
                 />
-              </div>
 
               <Button type="submit" className="w-full" disabled={isPending}>
                 {isPending ? "Menyimpan..." : "Simpan"}

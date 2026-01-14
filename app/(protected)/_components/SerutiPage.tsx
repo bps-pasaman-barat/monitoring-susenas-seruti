@@ -5,7 +5,7 @@ export default function Page() {
   return (
     <>
       <Tabs
-        className="flex w-full flex-row gap-6 items-center"
+        className="flex w-full flex-row items-center"
         defaultValue="entri"
       >
         <TabsList className="flex h-40 flex-col">
