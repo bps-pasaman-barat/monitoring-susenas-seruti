@@ -18,3 +18,36 @@ model User {
   username String 
   password String
 }
+
+model SerutiEntri {
+  id                 Int      @id @default(autoincrement())
+  provinsi           String
+  kabupaten          String
+  kecamatan          String
+  nagari             String
+  sls                String
+  kode_sls_subsls    String
+  nks                String
+  no_ruta            String
+  nama_petugas_entri String
+  tgl_entri          DateTime
+
+  @@map("seruti_entri")
+}
+
+model SerutiMasuk {
+  id              Int      @id @default(autoincrement())
+  provinsi        String
+  kabupaten       String
+  kecamatan       String
+  nagari          String
+  sls             String
+  kode_sls_subsls String
+  nks             String
+  nama_PML        String
+  nama_PPL        String
+  no_ruta         String
+  tgl_masuk       DateTime
+
+  @@map("seruti_masuk")
+}

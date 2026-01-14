@@ -1,15 +1,16 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import SerutiPage from "../_components/SerutiPage";
 export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const activeTab = searchParams.get("tab") ?? "dashboard";
+  const activeTab = searchParams.get("hal") ?? "dashboard";
 
   const onTabChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("tab", value);
+    params.set("hal", value);
     router.replace(`?${params.toString()}`, { scroll: false });
   };
   return (
@@ -44,7 +45,9 @@ export default function Page() {
 
         <TabsContent value="susenas">{/* <DashboardCard /> */}isi</TabsContent>
 
-        <TabsContent value="seruti">{/* <DashboardCard /> */}isi</TabsContent>
+        <TabsContent value="seruti">
+          <SerutiPage />
+        </TabsContent>
       </Tabs>
     </div>
   );
