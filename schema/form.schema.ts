@@ -14,6 +14,10 @@ export const SerutiSchemaEntri = z.object({
 });
 
 export type SerutiEntriForm = z.infer<typeof SerutiSchemaEntri>;
+
+export const SusenasSchemaEntri = SerutiSchemaEntri;
+export type SusenasEntriForm = z.infer<typeof SusenasSchemaEntri>;
+
 export const SerutiSchemaMasuk = z.object({
   provinsi: z.string().min(1, "wajib di isi"),
   kabupaten: z.string().min(1, "wajib di isi"),
@@ -29,3 +33,6 @@ export const SerutiSchemaMasuk = z.object({
 });
 
 export type SerutiMasukForm = z.infer<typeof SerutiSchemaMasuk>;
+
+export const SusenasMasukSchema = SerutiSchemaMasuk;
+export type SusenasMasukForm = z.infer<typeof SusenasMasukSchema>;

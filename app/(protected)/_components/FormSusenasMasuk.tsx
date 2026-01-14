@@ -3,19 +3,18 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-
 import { InputTextField } from "@/components/boilerplate/InputField";
-import { SerutiMasukForm, SerutiSchemaMasuk } from "@/schema/form.schema";
 import { InputDateField } from "@/components/boilerplate/FormDate";
-import { saveSerutiMasuk } from "@/app/server/seruti.actions";
 import { toast } from "sonner";
 import { useTransition } from "react";
+import { SusenasMasukForm, SusenasMasukSchema } from "@/schema/form.schema";
+import { saveSusenasMasuk } from "@/app/server/sesunas.actions";
 
-export default function FormSerutiMasuk() {
+export default function FormSesunasMasuk() {
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<SerutiMasukForm>({
-    resolver: zodResolver(SerutiSchemaMasuk),
+  const form = useForm<SusenasMasukForm>({
+    resolver: zodResolver(SusenasMasukSchema),
     defaultValues: {
       kecamatan: "",
       kabupaten: "",
@@ -31,9 +30,9 @@ export default function FormSerutiMasuk() {
     },
   });
 
-  const onSubmit = (data: SerutiMasukForm) => {
+  const onSubmit = (data: SusenasMasukForm) => {
     startTransition(async () => {
-      const result = await saveSerutiMasuk(data);
+      const result = await saveSusenasMasuk(data);
 
       if (result.success) {
         toast.success(result.message);
@@ -53,7 +52,7 @@ export default function FormSerutiMasuk() {
   return (
     <>
       <h1 className="text-xl text-center font-semibold uppercase mb-4">
-        dokumen yang masuk seruti
+        dokumen yang masuk susenas
       </h1>
       <div className="space-y-4 w-full border p-4">
         <FormProvider {...form}>

@@ -1,6 +1,7 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import FormSerutiEntri from "./FormSerutiEntri";
-import FormSerutiMasuk from "./FormSerutiMasuk";
+import FormSesunasEntri from "./FormSusenasEntri";
+import FormSesunasMasuk from "./FormSusenasMasuk";
+
 export default function Page() {
   return (
     <>
@@ -13,12 +14,12 @@ export default function Page() {
             Dokumen Masuk
           </TabsTrigger>
         </TabsList>
-        <div className="flex-1">
-          <TabsContent value="entri" className=" mx-auto">
-            <FormSerutiEntri />
+        <div className="flex-1 ">
+          <TabsContent value="entri" className="mx-auto">
+            <FormSesunasEntri />
           </TabsContent>
-          <TabsContent value="masuk" className=" mx-auto">
-            <FormSerutiMasuk />
+          <TabsContent value="masuk" className="mx-auto">
+            <FormSesunasMasuk />
           </TabsContent>
         </div>
       </Tabs>

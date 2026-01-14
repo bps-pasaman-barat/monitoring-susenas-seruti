@@ -2,6 +2,8 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import SerutiPage from "../_components/SerutiPage";
+import SesunasPage from "../_components/susenasPage";
+import DashboardPage from "../_components/DashboardPage";
 export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -17,22 +19,22 @@ export default function Page() {
     <div className="min-h-screen bg-white p-6">
       <Tabs value={activeTab} onValueChange={onTabChange}>
         {/* TAB BUTTON */}
-        <TabsList className="mx-auto mb-6 grid w-fit grid-cols-3 gap-4 bg-transparent">
+        <TabsList className="mx-auto  grid w-fit grid-cols-3 gap-4 bg-transparent mb-4">
           <TabsTrigger
             value="dashboard"
-            className="rounded bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+            className="rounded-md bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
           >
             DASHBOARD
           </TabsTrigger>
           <TabsTrigger
             value="susenas"
-            className="rounded bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+            className="rounded-md bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
           >
             INPUT DATA SUSENAS
           </TabsTrigger>
           <TabsTrigger
             value="seruti"
-            className="rounded bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+            className="rounded-md bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
           >
             INPUT DATA SERUTI
           </TabsTrigger>
@@ -40,11 +42,11 @@ export default function Page() {
 
         {/* CONTENT */}
         <TabsContent value="dashboard">
-          {/* <DashboardCard /> */}isi
+          <DashboardPage />
         </TabsContent>
-
-        <TabsContent value="susenas">{/* <DashboardCard /> */}isi</TabsContent>
-
+        <TabsContent value="susenas">
+          <SesunasPage />
+        </TabsContent>
         <TabsContent value="seruti">
           <SerutiPage />
         </TabsContent>

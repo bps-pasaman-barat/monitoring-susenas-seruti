@@ -3,14 +3,14 @@
 import { prisma } from "@/lib/db";
 
 import {
-  SerutiSchemaMasuk,
-  SerutiMasukForm,
-  SerutiSchemaEntri,
-  SerutiEntriForm,
+  SusenasEntriForm,
+  SusenasMasukForm,
+  SusenasMasukSchema,
+  SusenasSchemaEntri,
 } from "@/schema/form.schema";
 
-export async function saveSerutiMasuk(input: SerutiMasukForm) {
-  const parsed = SerutiSchemaMasuk.safeParse(input);
+export async function saveSusenasMasuk(input: SusenasMasukForm) {
+  const parsed = SusenasMasukSchema.safeParse(input);
 
   if (!parsed.success) {
     return {
@@ -21,7 +21,7 @@ export async function saveSerutiMasuk(input: SerutiMasukForm) {
   }
 
   try {
-    const data = await prisma.serutiMasuk.create({
+    const data = await prisma.susenasMasuk.create({
       data: parsed.data,
     });
 
@@ -38,8 +38,8 @@ export async function saveSerutiMasuk(input: SerutiMasukForm) {
   }
 }
 
-export async function saveSerutiEntri(input: SerutiEntriForm) {
-  const parsed = SerutiSchemaEntri.safeParse(input);
+export async function saveSusenasEntri(input: SusenasEntriForm) {
+  const parsed = SusenasSchemaEntri.safeParse(input);
 
   if (!parsed.success) {
     return {
@@ -50,7 +50,7 @@ export async function saveSerutiEntri(input: SerutiEntriForm) {
   }
 
   try {
-    const data = await prisma.serutiEntri.create({
+    const data = await prisma.susenasEntri.create({
       data: parsed.data,
     });
 

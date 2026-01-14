@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Menu",
+  title: "monitoring",
   description: "",
 };
 export default async function Layout({
@@ -16,5 +16,5 @@ export default async function Layout({
   if (!session) {
     redirect("/login");
   }
-  return <div className="p-4  mx-auto">{children}</div>;
+  return <div className="p-4 mx-auto">{children}</div>;
 }
