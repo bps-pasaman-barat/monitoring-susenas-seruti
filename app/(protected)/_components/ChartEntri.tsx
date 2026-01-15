@@ -1,20 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 
 export function ChartEntri({ totalEntri }: { totalEntri: number }) {
-  const [limit, setLimit] = useState<number>(100);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("maxEntri");
-    if (stored) {
-      const parsed = Number(stored);
-      if (!Number.isNaN(parsed)) {
-        setLimit(parsed);
-      }
-    }
-  }, []);
+  const [limit] = useState<number>(() => {
+    const parsed = Number(localStorage.getItem("maxEntri"));
+    return Number.isNaN(parsed) ? 100 : parsed;
+  });
 
   const used = Math.min(totalEntri, limit);
   const remaining = Math.max(limit - totalEntri, 0);
@@ -23,6 +16,7 @@ export function ChartEntri({ totalEntri }: { totalEntri: number }) {
     merah: "#3b82f6",
     biru: "#ef4444",
   };
+
   const data = [
     { name: "Terpakai", value: used, color: color.merah },
     { name: "Sisa", value: remaining, color: color.biru },
@@ -30,7 +24,6 @@ export function ChartEntri({ totalEntri }: { totalEntri: number }) {
 
   return (
     <div className="flex items-center gap-4 z-20">
-      {/* Chart */}
       <PieChart width={160} height={160}>
         <Pie data={data} innerRadius={50} outerRadius={70} dataKey="value">
           {data.map((entry, i) => (
@@ -38,9 +31,10 @@ export function ChartEntri({ totalEntri }: { totalEntri: number }) {
           ))}
         </Pie>
       </PieChart>
+
       <div className="space-y-2 text-sm">
-        <LegendItem color={color.merah} label="Sudah masuk" value={remaining} />
-        <LegendItem color={color.biru} label="Belum masuk" value={used} />
+        <LegendItem color={color.merah} label="Sudah masuk" value={used} />
+        <LegendItem color={color.biru} label="Belum masuk" value={remaining} />
         <p className="text-xs text-muted-foreground">Batas: {limit}</p>
       </div>
     </div>

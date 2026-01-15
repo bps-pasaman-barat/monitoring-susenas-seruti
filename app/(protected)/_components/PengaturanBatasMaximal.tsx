@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -14,16 +14,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export function SettingsLimitDialog() {
-  const [seruti, setSeruti] = useState<number>(1000);
-  const [susenas, setSusenas] = useState<number>(1000);
+  const [seruti, setSeruti] = useState<number>(() => {
+    const v = Number(localStorage.getItem("maxMasuk"));
+    return Number.isNaN(v) ? 1000 : v;
+  });
 
-  useEffect(() => {
-    const s1 = localStorage.getItem("maxMasuk");
-    const s2 = localStorage.getItem("maxEntri");
-
-    if (s1) setSeruti(Number(s1));
-    if (s2) setSusenas(Number(s2));
-  }, []);
+  const [susenas, setSusenas] = useState<number>(() => {
+    const v = Number(localStorage.getItem("maxEntri"));
+    return Number.isNaN(v) ? 1000 : v;
+  });
 
   function handleSave() {
     localStorage.setItem("maxMasuk", String(seruti));
@@ -39,7 +38,7 @@ export function SettingsLimitDialog() {
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Atur Batas max</DialogTitle>
+          <DialogTitle>Atur Batas Max</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">

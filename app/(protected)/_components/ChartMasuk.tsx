@@ -1,20 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 
 export function ChartMasuk({ totalMasuk }: { totalMasuk: number }) {
-  const [limit, setLimit] = useState<number>(100);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("maxMasuk");
-    if (stored) {
-      const parsed = Number(stored);
-      if (!Number.isNaN(parsed)) {
-        setLimit(parsed);
-      }
-    }
-  }, []);
+  const [limit, setLimit] = useState<number>(() => {
+    const parsed = Number(localStorage.getItem("maxMasuk"));
+    return Number.isNaN(parsed) ? 100 : parsed;
+  });
   const used = Math.min(totalMasuk, limit);
   const remaining = Math.max(limit - totalMasuk, 0);
 

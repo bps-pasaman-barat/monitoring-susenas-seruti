@@ -9,6 +9,8 @@ import { InputTextField } from "@/components/boilerplate/InputField";
 import { InputDateField } from "@/components/boilerplate/FormDate";
 import { toast } from "sonner";
 import { saveSusenasEntri } from "@/app/server/sesunas.actions";
+import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
+import NagariField from "@/components/boilerplate/NagariField";
 
 export default function FormSesunasEntri() {
   const [isPending, startTransition] = useTransition();
@@ -59,8 +61,8 @@ export default function FormSesunasEntri() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <InputTextField form={form} name="provinsi" label="Provinsi" />
               <InputTextField form={form} name="kabupaten" label="Kabupaten" />
-              <InputTextField form={form} name="kecamatan" label="Kecamatan" />
-              <InputTextField form={form} name="nagari" label="Nagari" />
+              <KecamatanSelect name="kecamatan" form={form} />
+              <NagariField form={form} />
               <InputTextField form={form} name="sls" label="SLS" />
               <InputTextField
                 form={form}

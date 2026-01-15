@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import { useTransition } from "react";
 import { SusenasMasukForm, SusenasMasukSchema } from "@/schema/form.schema";
 import { saveSusenasMasuk } from "@/app/server/sesunas.actions";
+import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
+import NagariField from "@/components/boilerplate/NagariField";
 
 export default function FormSesunasMasuk() {
   const [isPending, startTransition] = useTransition();
@@ -60,8 +62,8 @@ export default function FormSesunasMasuk() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <InputTextField form={form} name="provinsi" label="Provinsi" />
               <InputTextField form={form} name="kabupaten" label="Kabupaten" />
-              <InputTextField form={form} name="kecamatan" label="Kecamatan" />
-              <InputTextField form={form} name="nagari" label="Nagari" />
+              <KecamatanSelect name="kecamatan" form={form} />
+              <NagariField form={form} />
               <InputTextField form={form} name="sls" label="SLS" />
               <InputTextField
                 form={form}

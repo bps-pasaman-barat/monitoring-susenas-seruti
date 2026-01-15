@@ -22,19 +22,19 @@ export default function Page() {
         <TabsList className="mx-auto  grid w-fit grid-cols-3 gap-4 bg-transparent mb-4">
           <TabsTrigger
             value="dashboard"
-            className="rounded-md bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+            className="rounded-md bg-blue-200 px-6 py-2 text-white data-[state=active]:bg-blue-700"
           >
             DASHBOARD
           </TabsTrigger>
           <TabsTrigger
             value="susenas"
-            className="rounded-md bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+            className="rounded-md bg-blue-200 px-6 py-2 text-white data-[state=active]:bg-blue-700"
           >
             INPUT DATA SUSENAS
           </TabsTrigger>
           <TabsTrigger
             value="seruti"
-            className="rounded-md bg-blue-400 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+            className="rounded-md bg-blue-200 px-6 py-2 text-white data-[state=active]:bg-blue-700"
           >
             INPUT DATA SERUTI
           </TabsTrigger>
