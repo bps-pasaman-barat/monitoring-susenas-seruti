@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 
 export function ChartMasuk({ totalMasuk }: { totalMasuk: number }) {
-  const [limit, setLimit] = useState<number>(1000); 
+  const [limit, setLimit] = useState<number>(100);
 
   useEffect(() => {
-    const stored = localStorage.getItem("limitMasuk");
+    const stored = localStorage.getItem("maxMasuk");
     if (stored) {
       const parsed = Number(stored);
       if (!Number.isNaN(parsed)) {
@@ -18,23 +18,50 @@ export function ChartMasuk({ totalMasuk }: { totalMasuk: number }) {
   const used = Math.min(totalMasuk, limit);
   const remaining = Math.max(limit - totalMasuk, 0);
 
+  const color = {
+    merah: "#3b82f6",
+    biru: "#ef4444",
+  };
   const data = [
-    { name: "Terpakai", value: used },
-    { name: "Sisa", value: remaining },
-  ];
-
-  const COLORS = [
-    "#ef4444", // merah (terpakai)
-    "#3b82f6", // biru (sisa)
+    { name: "Terpakai", value: used, color: color.merah },
+    { name: "Sisa", value: remaining, color: color.biru },
   ];
 
   return (
-    <PieChart width={200} height={200}>
-      <Pie data={data} innerRadius={60} outerRadius={80} dataKey="value">
-        {data.map((_, i) => (
-          <Cell key={i} fill={COLORS[i]} />
-        ))}
-      </Pie>
-    </PieChart>
+    <div className="flex items-center gap-4 z-20">
+      <PieChart width={160} height={160}>
+        <Pie data={data} innerRadius={50} outerRadius={70} dataKey="value">
+          {data.map((masuk, i) => (
+            <Cell key={i} fill={masuk.color} />
+          ))}
+        </Pie>
+      </PieChart>
+      <div className="space-y-2 text-sm">
+        <LegendItem color={color.merah} label="Sudah masuk" value={used} />
+        <LegendItem color={color.biru} label="Belum masuk" value={remaining} />
+        <p className="text-xs text-muted-foreground">Batas: {limit}</p>
+      </div>
+    </div>
+  );
+}
+
+function LegendItem({
+  color,
+  label,
+  value,
+}: {
+  color: string;
+  label: string;
+  value: number;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <span
+        className="h-3 w-3 rounded-full"
+        style={{ backgroundColor: color }}
+      />
+      <span className="font-medium">{label}</span>
+      <span className="text-muted-foreground">({value})</span>
+    </div>
   );
 }

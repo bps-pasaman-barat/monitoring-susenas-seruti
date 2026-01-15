@@ -4,19 +4,24 @@ import useSWR from "swr";
 import MonitoringCard from "./MonitoringCard";
 import { fetcher } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import { SettingsMenu } from "@/components/SettingsMenu";
 
 export default function DashboardPage() {
   const interval = 5000;
   const { data, error, isLoading } = useSWR("/api/backend", fetcher, {
     refreshInterval: interval,
-    revalidateOnFocus: true,
-    revalidateOnReconnect: true,
   });
+  console.log(data)
   if (isLoading) return <DashboardLoading />;
   if (error) return null;
 
   return (
     <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <SettingsMenu />
+      </div>
+
       <div className="grid gap-6 md:grid-cols-2">
         <MonitoringCard
           label="Seruti"

@@ -76,7 +76,7 @@ export default function FormSerutiMasuk() {
             </div>
             <InputDateField
               form={form}
-              label="Tanggal pemasukan"
+              label="Tanggal Pemasukan"
               name="tgl_masuk"
               placeholder="26 desember 2025"
             />
