@@ -46,7 +46,6 @@ export const authConfig = {
       }
       return token;
     },
-    // lib/auth/auth.config.ts (inside callbacks.session)
     async session({ session, token }) {
       if (token) {
         session.user = {

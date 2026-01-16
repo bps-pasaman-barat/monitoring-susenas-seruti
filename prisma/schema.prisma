@@ -27,7 +27,8 @@ model SerutiEntri {
   nagari             String
   sls                String
   kode_sls_subsls    String
-  nks                String
+  //uniq  nks
+  nks                String  
   no_ruta            String
   nama_petugas_entri String
   tgl_entri          DateTime
@@ -65,21 +66,4 @@ model SusenasEntri {
   tgl_entri          DateTime
 
   @@map("susenas_entri")
-}
-
-model SusenasMasuk {
-  id              Int      @id @default(autoincrement())
-  provinsi        String
-  kabupaten       String
-  kecamatan       String
-  nagari          String
-  sls             String
-  kode_sls_subsls String
-  nks             String
-  nama_PML        String
-  nama_PPL        String
-  no_ruta         String
-  tgl_masuk       DateTime
-
-  @@map("susenas_masuk")
 }

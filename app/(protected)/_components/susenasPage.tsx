@@ -2,7 +2,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FormSesunasEntri from "./FormSusenasEntri";
 import FormSesunasMasuk from "./FormSusenasMasuk";
 
-export default function Page() {
+export default function SesunasPage() {
   return (
     <>
       <Tabs className="flex w-full flex-row items-center" defaultValue="entri">

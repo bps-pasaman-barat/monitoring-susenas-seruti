@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { ChartEntri } from "./ChartEntri";
 import { ChartMasuk } from "./ChartMasuk";
 type Props = {
@@ -27,12 +28,32 @@ export default function MonitoringCard({
 
       <div className="grid grid-cols-1 gap-4">
         <div className={`rounded-xl border p-4 ${className2}`}>
-          <p className="text-xs text-muted-foreground">Total Data Masuk</p>
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-muted-foreground capitalize">
+              Total Data Masuk
+            </p>
+            <Link
+              href={`detail/${label.toLocaleLowerCase()}/masuk`}
+              className="text-orange-600"
+              target="_blank"
+            >
+              detail per kecamatan
+            </Link>
+          </div>
           <ChartMasuk totalMasuk={totalMasuk} />
           <p className="text-3xl font-bold">{totalMasuk}</p>
         </div>
         <div className={`rounded-xl border p-4 ${className1}`}>
-          <p className="text-xs text-muted-foreground">Total Data Entri</p>
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-muted-foreground">Total Data Entri</p>
+            <Link
+              href={`detail/${label.toLocaleLowerCase()}/entri`}
+              className="text-orange-600"
+              target="_blank"
+            >
+              detail per kecamatan
+            </Link>
+          </div>
           <ChartEntri totalEntri={totalEntri} />
           <p className="text-3xl font-bold">{totalEntri}</p>
         </div>

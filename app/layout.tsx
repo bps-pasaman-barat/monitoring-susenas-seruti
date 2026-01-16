@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ClientWrapper } from "@/components/ui/common/ClientWrapper";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable}  antialiased`}
       >
         <Toaster />
-
+  
         <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>

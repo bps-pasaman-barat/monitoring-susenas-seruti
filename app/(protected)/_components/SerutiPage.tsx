@@ -1,7 +1,7 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FormSerutiEntri from "./FormSerutiEntri";
 import FormSerutiMasuk from "./FormSerutiMasuk";
-export default function Page() {
+export default function SerutiPage() {
   return (
     <>
       <Tabs className="flex w-full flex-row items-center" defaultValue="entri">
