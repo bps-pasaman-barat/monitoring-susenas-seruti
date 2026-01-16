@@ -16,5 +16,5 @@ export default async function Layout({
   if (!session) {
     redirect("/login");
   }
-  return <div className="p-4 mx-auto">{children}</div>;
+  return <div className="mx-auto">{children}</div>;
 }

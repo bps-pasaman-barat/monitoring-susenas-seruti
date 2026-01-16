@@ -5,8 +5,8 @@ import FormSesunasMasuk from "./FormSusenasMasuk";
 export default function SesunasPage() {
   return (
     <>
-      <Tabs className="flex w-full flex-row items-center" defaultValue="entri">
-        <TabsList className="flex h-40 flex-col">
+      <Tabs className="flex w-full flex-row items-center " defaultValue="entri">
+        <TabsList className="flex h-40 flex-col border bg-blue-300 ">
           <TabsTrigger className="w-full justify-start uppercase" value="entri">
             Dokumen entri
           </TabsTrigger>

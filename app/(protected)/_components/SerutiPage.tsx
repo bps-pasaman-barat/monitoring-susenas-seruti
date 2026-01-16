@@ -5,7 +5,7 @@ export default function SerutiPage() {
   return (
     <>
       <Tabs className="flex w-full flex-row items-center" defaultValue="entri">
-        <TabsList className="flex h-40 flex-col">
+        <TabsList className="flex h-40 flex-col bg-blue-300">
           <TabsTrigger className="w-full justify-start uppercase" value="entri">
             Dokumen entri
           </TabsTrigger>

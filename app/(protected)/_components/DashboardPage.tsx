@@ -17,7 +17,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between border-b">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <SettingsMenu />
       </div>

@@ -52,7 +52,7 @@ export default function FormSerutiEntri() {
 
   return (
     <>
-      <h1 className="text-xl text-center font-semibold uppercase mb-4">
+      <h1 className="text-xl text-center font-semibold uppercase mt-10 mb-2">
         dokumen yang di-entri seruti
       </h1>
       <div className="space-y-4 w-full border p-4 ">

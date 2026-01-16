@@ -19,22 +19,45 @@ export default function MainTabs() {
   return (
     <Tabs value={activeTab} onValueChange={onTabChange}>
       {/* TAB BUTTON */}
-      <TabsList className="mx-auto  grid w-fit grid-cols-3 gap-4 bg-transparent mb-4">
+      <TabsList className="mx-auto  grid w-fit grid-cols-3 gap-4 bg-transparent shadow-md  mb-4">
         <TabsTrigger
           value="dashboard"
-          className="rounded-md bg-blue-200 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+          className="
+          
+      rounded-none
+      px-0
+      text-gray-500
+      border-b-2
+      border-transparent
+      data-[state=active]:text-blue-700
+      data-[state=active]:border-blue-700
+    "
         >
           DASHBOARD
         </TabsTrigger>
         <TabsTrigger
           value="susenas"
-          className="rounded-md bg-blue-200 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+          className="
+      rounded-none
+      px-4 py-2
+      text-gray-500
+      border-b-2 border-transparent
+      data-[state=active]:text-blue-700
+      data-[state=active]:border-blue-700
+    "
         >
           INPUT DATA SUSENAS
         </TabsTrigger>
         <TabsTrigger
           value="seruti"
-          className="rounded-md bg-blue-200 px-6 py-2 text-white data-[state=active]:bg-blue-700"
+          className="
+      rounded-none
+      px-4 py-2
+      text-gray-500
+      border-b-2 border-transparent
+      data-[state=active]:text-blue-700
+      data-[state=active]:border-blue-700
+    "
         >
           INPUT DATA SERUTI
         </TabsTrigger>
