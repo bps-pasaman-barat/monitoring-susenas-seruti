@@ -5,16 +5,29 @@ import MonitoringCard from "./MonitoringCard";
 import { fetcher } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { SettingsMenu } from "@/components/SettingsMenu";
-
+type KecamatanData = Record<string, number>;
+export type DashboardData = {
+  totalSusenasMasuk: KecamatanData;
+  totalSusenasEntri: KecamatanData;
+  totalSerutiMasuk: KecamatanData;
+  totalSerutiEntri: KecamatanData;
+};
+export type DashboardApiResponse = {
+  data: DashboardData;
+};
 export default function DashboardPage() {
   const interval = 5000;
-  const { data, error, isLoading } = useSWR("/api/backend", fetcher, {
-    refreshInterval: interval,
-  });
-  console.log(data)
+  const { data, error, isLoading } = useSWR<DashboardApiResponse>(
+    "/api/backend",
+    fetcher,
+    {
+      refreshInterval: interval,
+    },
+  );
+
   if (isLoading) return <DashboardLoading />;
   if (error) return null;
-
+  console.log(data);
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between border-b">
@@ -23,21 +36,25 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <MonitoringCard
-          label="Seruti"
-          className1="bg-green-400"
-          className2="bg-red-200"
-          totalEntri={data.data.seruti.totalEntriSeruti}
-          totalMasuk={data.data.seruti.totalMasukSeruti}
-        />
+        {data && (
+          <>
+            <MonitoringCard
+              label="Seruti"
+              className1="bg-green-200"
+              className2="bg-red-100"
+              totalEntri={data.data.totalSerutiEntri}
+              totalMasuk={data.data.totalSerutiMasuk}
+            />
 
-        <MonitoringCard
-          className1="bg-green-400"
-          className2="bg-red-200"
-          label="Susenas"
-          totalEntri={data.data.susenas.totalEntriSusenas}
-          totalMasuk={data.data.susenas.totalMasukSusenas}
-        />
+            <MonitoringCard
+              label="Susenas"
+              className1="bg-green-200"
+              className2="bg-red-100"
+              totalEntri={data.data.totalSusenasEntri}
+              totalMasuk={data.data.totalSusenasMasuk}
+            />
+          </>
+        )}
       </div>
     </div>
   );

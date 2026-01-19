@@ -2,10 +2,9 @@ import { prisma } from "@/lib/db";
 
 import { NextRequest, NextResponse } from "next/server";
 
-
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ nama: string }> }
+  { params }: { params: Promise<{ nama: string }> },
 ) {
   const kecamatan = (await params).nama;
   //   jenis hanya ada dua yaitu "masuk" dan "entri"
@@ -13,21 +12,14 @@ export async function GET(
 
   try {
     // Query Prisma berdasarkan kecamatan
-    const data = await prisma.serutiEntri.findMany({
-      where: {
-        kecamatan: {
-          equals: kecamatan,
-          mode: "insensitive",
-        },
-      },
-    });
+    const data = await prisma.serutiEntri.findMany({});
 
     return NextResponse.json(data);
   } catch (error) {
     console.error(error);
     return NextResponse.json(
       { error: "Gagal mengambil data" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

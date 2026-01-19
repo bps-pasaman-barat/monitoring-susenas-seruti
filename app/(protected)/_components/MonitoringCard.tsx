@@ -2,13 +2,17 @@
 import Link from "next/link";
 import { ChartEntri } from "./ChartEntri";
 import { ChartMasuk } from "./ChartMasuk";
+import { kecamatan } from "@/constants";
+
+
 type Props = {
-  totalEntri: number;
-  totalMasuk: number;
+  totalEntri: Record<string, number>; 
+  totalMasuk: Record<string, number>; 
   label: string;
   className1?: string;
   className2?: string;
 };
+
 export default function MonitoringCard({
   totalEntri,
   totalMasuk,
@@ -16,6 +20,20 @@ export default function MonitoringCard({
   className1 = "",
   className2 = "",
 }: Props) {
+  // konversi data agar semua kecamatan terisi, jika tidak ada maka 0
+  const dataMasuk = kecamatan.map((k) => ({
+    name: k.label,
+    value: totalMasuk[k.label] ?? 0,
+  }));
+
+  const dataEntri = kecamatan.map((k) => ({
+    name: k.label,
+    value: totalEntri[k.label] ?? 0,
+  }));
+
+  const sumMasuk = dataMasuk.reduce((a, b) => a + b.value, 0);
+  const sumEntri = dataEntri.reduce((a, b) => a + b.value, 0);
+
   return (
     <div
       className="space-y-6 rounded-2xl border p-6 bg-background
@@ -40,9 +58,10 @@ export default function MonitoringCard({
               detail per kecamatan
             </Link>
           </div>
-          <ChartMasuk totalMasuk={totalMasuk} />
-          <p className="text-3xl font-bold">{totalMasuk}</p>
+          <ChartMasuk totalMasuk={dataMasuk} />
+          <p className="text-3xl font-bold">{sumMasuk}</p>
         </div>
+
         <div className={`rounded-xl border p-4 ${className1}`}>
           <div className="flex items-center justify-between">
             <p className="text-xs text-muted-foreground">Total Data Entri</p>
@@ -54,8 +73,8 @@ export default function MonitoringCard({
               detail per kecamatan
             </Link>
           </div>
-          <ChartEntri totalEntri={totalEntri} />
-          <p className="text-3xl font-bold">{totalEntri}</p>
+          <ChartEntri totalEntri={dataEntri} />
+          <p className="text-3xl font-bold">{sumEntri}</p>
         </div>
       </div>
     </div>

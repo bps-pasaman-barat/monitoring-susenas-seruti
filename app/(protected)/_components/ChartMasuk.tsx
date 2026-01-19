@@ -1,60 +1,59 @@
 "use client";
-
-import {  useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 
-export function ChartMasuk({ totalMasuk }: { totalMasuk: number }) {
-  const [limit, setLimit] = useState<number>(() => {
-    const parsed = Number(localStorage.getItem("maxMasuk"));
-    return Number.isNaN(parsed) ? 100 : parsed;
-  });
-  const used = Math.min(totalMasuk, limit);
-  const remaining = Math.max(limit - totalMasuk, 0);
+type ChartData = { name: string; value: number };
 
-  const color = {
-    merah: "#3b82f6",
-    biru: "#ef4444",
-  };
-  const data = [
-    { name: "Terpakai", value: used, color: color.merah },
-    { name: "Sisa", value: remaining, color: color.biru },
+export function ChartMasuk({ totalMasuk }: { totalMasuk: ChartData[] }) {
+  const limitLocalStorage = localStorage.getItem("maxMasuk");
+  const limit = limitLocalStorage ? Number(limitLocalStorage) : 10000;
+  const colors = [
+    "#1f77b4", // biru tua
+    "#ff7f0e", // oranye
+    "#2ca02c", // hijau
+    "#000000", // hitam
+    "#9467bd", // ungu
+    "#8c564b", // cokelat
+    "#e377c2", // pink
+    "#7f7f7f", // abu-abu
+    "#bcbd22", // lime / kuning-hijau
+    "#17becf", // cyan
   ];
 
+  const total = totalMasuk.reduce((acc, d) => acc + d.value, 0);
   return (
-    <div className="flex items-center gap-4 z-20">
-      <PieChart width={160} height={160}>
-        <Pie data={data} innerRadius={50} outerRadius={70} dataKey="value">
-          {data.map((masuk, i) => (
-            <Cell key={i} fill={masuk.color} />
+    <div className="flex flex-col md:flex-row gap-4 z-20">
+      <PieChart width={200} height={200}>
+        <Pie
+          data={totalMasuk}
+          dataKey="value"
+          nameKey="name"
+          innerRadius={50}
+          outerRadius={70}
+          paddingAngle={2}
+        >
+          {totalMasuk.map((entry, i) => (
+            <Cell key={entry.name} fill={colors[i % colors.length]} />
           ))}
         </Pie>
       </PieChart>
-      <div className="space-y-2 text-sm">
-        <LegendItem color={color.merah} label="Sudah masuk" value={used} />
-        <LegendItem color={color.biru} label="Belum masuk" value={remaining} />
-        <p className="text-xs text-muted-foreground">Batas: {limit}</p>
-      </div>
-    </div>
-  );
-}
 
-function LegendItem({
-  color,
-  label,
-  value,
-}: {
-  color: string;
-  label: string;
-  value: number;
-}) {
-  return (
-    <div className="flex items-center gap-2">
-      <span
-        className="h-3 w-3 rounded-full"
-        style={{ backgroundColor: color }}
-      />
-      <span className="font-medium">{label}</span>
-      <span className="text-muted-foreground">({value})</span>
+      <div className="flex flex-col gap-2 text-sm">
+        {totalMasuk.map((d, i) => (
+          <div key={d.name} className="flex items-center gap-2">
+            <span
+              className="h-3 w-3 rounded-full"
+              style={{ backgroundColor: colors[i % colors.length] }}
+            />
+            <span className="font-medium">{d.name}</span>
+            <span className="text-muted-foreground">({d.value})</span>
+          </div>
+        ))}
+
+        <p className="text-xs text-muted-foreground mt-1">
+          Total sekarang: {total} / {limit} (
+          {((total / limit) * 100).toFixed(2)}%)
+        </p>
+      </div>
     </div>
   );
 }

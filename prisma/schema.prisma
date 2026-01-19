@@ -21,11 +21,28 @@ model User {
 
 model Kecamatan {
   id Int @id @default(autoincrement())
-  kecamatan  String 
+  kecamatan  String @unique
   SerutiEntri  SerutiEntri[]
   SerutiMasuk  SerutiMasuk[]
   SusenasEntri  SusenasEntri[]
   SusenasMasuk  SusenasMasuk[]
+}
+
+model SerutiEntri {
+  id                 Int      @id @default(autoincrement())
+  kecamatanId Int 
+  provinsi           String
+  kabupaten          String
+  kecamatan     Kecamatan @relation(fields: [kecamatanId], references: [id])
+  nagari             String
+  sls                String
+  kode_sls_subsls    String
+  nks             String @unique
+  no_ruta            String
+  nama_petugas_entri String
+  tgl_entri          DateTime
+
+  @@map("seruti_entri")
 }
 
 model SerutiMasuk {
