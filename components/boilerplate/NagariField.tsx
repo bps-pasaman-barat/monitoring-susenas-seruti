@@ -70,7 +70,7 @@ export default function NagariField({ form }: FieldProps) {
             </FormControl>
 
             {open && filtered.length > 0 && (
-              <ul className="absolute top-full mt-2 z-20 max-h-40 w-full overflow-y-auto rounded-md border bg-white shadow-md">
+              <ul className="absolute top-full mt-2 z-20 max-h-125 w-full overflow-y-auto rounded-md border bg-white shadow-md">
                 {filtered.map((n) => (
                   <li
                     key={n}
