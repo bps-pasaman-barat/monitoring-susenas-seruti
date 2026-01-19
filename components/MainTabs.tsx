@@ -29,6 +29,7 @@ export default function MainTabs() {
       text-gray-500
       border-b-2
       border-transparent
+    data-[state=active]:bg-blue-100
       data-[state=active]:text-blue-700
       data-[state=active]:border-blue-700
     "
@@ -39,10 +40,11 @@ export default function MainTabs() {
           value="susenas"
           className="
       rounded-none
-      px-4 py-2
+      px-4 py-1
       text-gray-500
       border-b-2 border-transparent
       data-[state=active]:text-blue-700
+      data-[state=active]:bg-blue-100
       data-[state=active]:border-blue-700
     "
         >
@@ -52,9 +54,10 @@ export default function MainTabs() {
           value="seruti"
           className="
       rounded-none
-      px-4 py-2
+      px-4 py-1
       text-gray-500
       border-b-2 border-transparent
+         data-[state=active]:bg-blue-100
       data-[state=active]:text-blue-700
       data-[state=active]:border-blue-700
     "

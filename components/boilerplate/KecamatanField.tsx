@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-
 import { Controller, FieldValues, UseFormReturn } from "react-hook-form";
-import CreatableSelect from "react-select/creatable";
+
 import { kecamatan } from "@/constants";
+import dynamic from "next/dynamic";
+
+const CreatableSelect = dynamic(
+  () => import("react-select/creatable"),
+  { ssr: false },
+);
 type SelectOption = {
-  value: string;
+  value: number;
   label: string;
 };
-
 
 type Props<T extends FieldValues = any> = {
   form: UseFormReturn<T>;
@@ -24,7 +28,7 @@ export function KecamatanSelect<T extends FieldValues = any>({
   options = kecamatan,
 }: Props<T>) {
   const selectOptions: SelectOption[] = options.map((item) => ({
-    value: item.label,
+    value: item.key,
     label: item.label,
   }));
 
@@ -36,17 +40,18 @@ export function KecamatanSelect<T extends FieldValues = any>({
         control={form.control}
         name={name as any}
         render={({ field }) => (
-          <CreatableSelect<SelectOption, false>
+          <CreatableSelect
             options={selectOptions}
             isClearable
-            placeholder={`Pilih atau ketik ${label}`}
+            placeholder={`Pilih ${label}`}
             value={
-              field.value
-                ? { value: String(field.value), label: String(field.value) }
+              typeof field.value === "number"
+                ? (selectOptions.find((opt) => opt.value === field.value) ??
+                  null)
                 : null
             }
-            onChange={(option) => {
-              field.onChange(option?.value ?? "");
+            onChange={(option: any) => {
+              field.onChange(option?.value ?? null);
             }}
             onBlur={field.onBlur}
           />

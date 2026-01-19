@@ -18,7 +18,7 @@ export default function FormSesunasMasuk() {
   const form = useForm<SusenasMasukForm>({
     resolver: zodResolver(SusenasMasukSchema),
     defaultValues: {
-      kecamatan: "",
+      kecamatanId: undefined,
       kabupaten: "",
       kode_sls_subsls: "",
       nagari: "",
@@ -62,7 +62,7 @@ export default function FormSesunasMasuk() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <InputTextField form={form} name="provinsi" label="Provinsi" />
               <InputTextField form={form} name="kabupaten" label="Kabupaten" />
-              <KecamatanSelect name="kecamatan" form={form} />
+              <KecamatanSelect name="kecamatanId" form={form} />
               <NagariField form={form} />
               <InputTextField form={form} name="sls" label="SLS" />
               <InputTextField

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   FormControl,
   FormField,
@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { wilayah } from "@/constants";
+import { wilayah, kecamatan } from "@/constants";
 import { FieldValues, UseFormReturn, useWatch } from "react-hook-form";
 
 interface FieldProps<T extends FieldValues = any> {
@@ -18,19 +18,22 @@ interface FieldProps<T extends FieldValues = any> {
 }
 
 export default function NagariField({ form }: FieldProps) {
-  const kecamatan = useWatch({
+  const kecamatanId = useWatch({
     control: form.control,
-    name: "kecamatan",
+    name: "kecamatanId",
   });
-  console.log(kecamatan);
 
   const [open, setOpen] = useState(false);
 
-  const kecamatanTerpilih = kecamatan?.toUpperCase() ?? "";
+  const kecamatanLabel = useMemo(() => {
+    return kecamatan.find(k => k.key === kecamatanId)?.label ?? "";
+  }, [kecamatanId]);
+
+  const kecamatanKey = kecamatanLabel.toUpperCase();
 
   const nagariOptions =
     wilayah
-      .find((w) => w.kecamatan === kecamatanTerpilih)
+      .find((w) => w.kecamatan === kecamatanKey)
       ?.nagari.map((n) => n.nama) ?? [];
 
   return (
@@ -51,14 +54,18 @@ export default function NagariField({ form }: FieldProps) {
             <FormControl>
               <Input
                 {...field}
-                placeholder="Pilih nagari"
+                placeholder={
+                  kecamatanId
+                    ? "Pilih nagari"
+                    : "Pilih kecamatan dulu"
+                }
                 onChange={(e) => {
                   field.onChange(e.target.value);
                   setOpen(true);
                 }}
                 onFocus={() => setOpen(true)}
                 onBlur={() => setTimeout(() => setOpen(false), 100)}
-                disabled={!kecamatan}
+                disabled={!kecamatanId}
               />
             </FormControl>
 

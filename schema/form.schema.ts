@@ -3,7 +3,10 @@ import z from "zod";
 export const SerutiSchemaEntri = z.object({
   provinsi: z.string().min(1, "wajib di isi"),
   kabupaten: z.string().min(1, "wajib di isi"),
-  kecamatan: z.string().min(1, "wajib di isi"),
+  kecamatanId: z
+    .number( "kecamatan wajib di pilih" )
+    .int()
+    .positive(),
   nagari: z.string().min(1, "wajib di isi"),
   sls: z.string().min(1, "wajib di isi"),
   kode_sls_subsls: z.string().min(1, "wajib di isi"),
@@ -21,7 +24,10 @@ export type SusenasEntriForm = z.infer<typeof SusenasSchemaEntri>;
 export const SerutiSchemaMasuk = z.object({
   provinsi: z.string().min(1, "wajib di isi"),
   kabupaten: z.string().min(1, "wajib di isi"),
-  kecamatan: z.string().min(1, "wajib di isi"),
+  kecamatanId: z
+    .number( "kecamatan wajib di pilih" )
+    .int()
+    .positive(),
   nagari: z.string().min(1, "wajib di isi"),
   sls: z.string().min(1, "wajib di isi"),
   kode_sls_subsls: z.string().min(1, "wajib di isi"),
