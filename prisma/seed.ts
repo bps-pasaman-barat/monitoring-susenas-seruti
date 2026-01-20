@@ -38,6 +38,7 @@ async function main() {
   }));
   await prisma.kecamatan.createMany({
     data: kecamatans,
+    skipDuplicates: true,
   });
   // await prisma.susenasEntri.createMany({
   //   data: generateSusenasEntri(500, kecamatanIds),
