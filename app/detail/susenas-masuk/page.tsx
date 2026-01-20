@@ -24,6 +24,7 @@ export default async function Page() {
             {kecamatan.map((kec) => (
               <Link
                 key={kec.key}
+                target="_blank"
                 href={`/detail/susenas-masuk/${kec.label.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 <Card className="flex items-center gap-4 p-4 hover:bg-gray-100 cursor-pointer transition">
