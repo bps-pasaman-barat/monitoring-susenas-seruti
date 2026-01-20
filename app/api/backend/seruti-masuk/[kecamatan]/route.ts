@@ -3,7 +3,6 @@ import { prisma } from "@/lib/db";
 import { Prisma } from "@/lib/generated/prisma/client";
 import { NextResponse } from "next/server";
 
-
 const ORDERABLE_FIELDS = ["nks", "tgl_masuk"] as const;
 type OrderableField = (typeof ORDERABLE_FIELDS)[number];
 
@@ -33,7 +32,7 @@ export async function GET(
     const orderBy: Record<string, "asc" | "desc"> = {
       [orderByField]: orderParam,
     };
-    const total = await prisma.susenasMasuk.count({
+    const total = await prisma.serutiMasuk.count({
       where: {
         kecamatan: {
           kecamatan: namaKecamatan,
@@ -41,7 +40,7 @@ export async function GET(
       },
     });
 
-    const data = await prisma.susenasMasuk.findMany({
+    const data = await prisma.serutiMasuk.findMany({
       where: {
         kecamatan: {
           kecamatan: namaKecamatan,

@@ -73,3 +73,6 @@ export type SusenasEntriResponse = {
     totalPages: number;
   };
 };
+
+export type SerutiMasukResponse = SusenasMasukResponse;
+export type SerutiEntriResponse = SusenasEntriResponse;

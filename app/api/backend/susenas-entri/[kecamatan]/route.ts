@@ -1,27 +1,17 @@
+import { slugToTitle } from "@/helper/slug";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/lib/generated/prisma/client";
 import { NextResponse } from "next/server";
 
-
-function slugToTitle(slug: string) {
-  return slug
-    .toLowerCase()
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
-}
-
 const ORDERABLE_FIELDS = ["nks", "tgl_entri", "nama_petugas_entri"] as const;
 
 type OrderableField = (typeof ORDERABLE_FIELDS)[number];
-
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ kecamatan: string }> },
 ) {
   try {
-
     const slug = (await params).kecamatan;
     const namaKecamatan = slugToTitle(slug);
 
@@ -38,13 +28,13 @@ export async function GET(
       orderByParam as OrderableField,
     )
       ? orderByParam!
-      : "nks"; 
+      : "nks";
 
     const orderBy: Record<string, "asc" | "desc"> = {
       [orderByField]: orderParam,
     };
 
-    const total = await prisma.serutiEntri.count({
+    const total = await prisma.susenasEntri.count({
       where: {
         kecamatan: {
           kecamatan: namaKecamatan,
@@ -52,8 +42,7 @@ export async function GET(
       },
     });
 
- 
-    const data = await prisma.serutiEntri.findMany({
+    const data = await prisma.susenasEntri.findMany({
       where: {
         kecamatan: {
           kecamatan: namaKecamatan,
@@ -66,7 +55,6 @@ export async function GET(
       take: limit,
       orderBy,
     });
-
 
     return NextResponse.json({
       title: "seruti_entri",

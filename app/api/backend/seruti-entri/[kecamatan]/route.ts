@@ -3,8 +3,8 @@ import { prisma } from "@/lib/db";
 import { Prisma } from "@/lib/generated/prisma/client";
 import { NextResponse } from "next/server";
 
+const ORDERABLE_FIELDS = ["nks", "tgl_entri", "nama_petugas_entri"] as const;
 
-const ORDERABLE_FIELDS = ["nks", "tgl_masuk"] as const;
 type OrderableField = (typeof ORDERABLE_FIELDS)[number];
 
 export async function GET(
@@ -13,8 +13,8 @@ export async function GET(
 ) {
   try {
     const slug = (await params).kecamatan;
-
     const namaKecamatan = slugToTitle(slug);
+
     const { searchParams } = new URL(request.url);
 
     const page = Number(searchParams.get("page") ?? 1);
@@ -33,7 +33,8 @@ export async function GET(
     const orderBy: Record<string, "asc" | "desc"> = {
       [orderByField]: orderParam,
     };
-    const total = await prisma.susenasMasuk.count({
+
+    const total = await prisma.serutiEntri.count({
       where: {
         kecamatan: {
           kecamatan: namaKecamatan,
@@ -41,7 +42,7 @@ export async function GET(
       },
     });
 
-    const data = await prisma.susenasMasuk.findMany({
+    const data = await prisma.serutiEntri.findMany({
       where: {
         kecamatan: {
           kecamatan: namaKecamatan,
@@ -56,7 +57,7 @@ export async function GET(
     });
 
     return NextResponse.json({
-      title: "susenas_masuk",
+      title: "seruti_entri",
       nama_kec: namaKecamatan,
       data,
       meta: {
@@ -72,7 +73,7 @@ export async function GET(
   } catch (error) {
     console.error("Prisma error:", error);
 
-    // Database tidak bisa terkoneksi
+    // DB tidak terkoneksi
     if (error instanceof Prisma.PrismaClientInitializationError) {
       return NextResponse.json(
         {
@@ -83,18 +84,18 @@ export async function GET(
       );
     }
 
-    // Query salah / constraint error
+    // Query / constraint error
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       return NextResponse.json(
         {
           message: "Kesalahan query database",
-          error: error.code, // contoh: P2002, P2025, dll
+          error: error.code,
         },
         { status: 400 },
       );
     }
 
-    // Error lain (bug, runtime, dll)
+    // Error lain
     return NextResponse.json(
       {
         message: "Terjadi kesalahan pada server",
