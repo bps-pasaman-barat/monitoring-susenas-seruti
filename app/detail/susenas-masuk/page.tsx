@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Susenas per Kecamatan",
+  title: "Susenas masuk Kecamatan",
 };
 
 import { FolderOpen } from "lucide-react";

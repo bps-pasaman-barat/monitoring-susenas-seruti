@@ -19,9 +19,10 @@ import {
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { SusenasMasukResponse } from "@/types";
+import { SusenasEntriResponse } from "@/types";
+import { ArrowUp, ArrowDown } from "lucide-react";
 
-export default function TableSusenasMasuk({
+export default function TableSusenasEntri({
   kecamatan,
 }: {
   kecamatan: string;
@@ -31,14 +32,23 @@ export default function TableSusenasMasuk({
 
   const page = Number(searchParams.get("page") ?? 1);
   const limit = Number(searchParams.get("limit") ?? 10);
+  const orderBy = searchParams.get("orderBy") ?? "nks";
+  const order = searchParams.get("order") ?? "asc";
 
-  const [data, setData] = useState<SusenasMasukResponse | null>(null);
+  const [data, setData] = useState<SusenasEntriResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const updateUrl = (newPage: number, newLimit = limit) => {
+  const updateUrl = (
+    newPage: number,
+    newLimit = limit,
+    newOrderBy = orderBy,
+    newOrder = order,
+  ) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", newPage.toString());
     params.set("limit", newLimit.toString());
+    params.set("orderBy", newOrderBy);
+    params.set("order", newOrder);
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
@@ -47,10 +57,11 @@ export default function TableSusenasMasuk({
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/backend/susenas-masuk/${kecamatan}?page=${page}&limit=${limit}`,
+          `/api/backend/susenas-entri/${kecamatan}?page=${page}&limit=${limit}&orderBy=${orderBy}&order=${order}`,
         );
+
         if (!res.ok) throw new Error("Fetch gagal");
-        const result: SusenasMasukResponse = await res.json();
+        const result: SusenasEntriResponse = await res.json();
         setData(result);
       } catch (err) {
         console.error(err);
@@ -60,7 +71,7 @@ export default function TableSusenasMasuk({
     };
 
     fetchData();
-  }, [kecamatan, page, limit]);
+  }, [kecamatan, page, limit, orderBy, order]);
 
   if (loading)
     return (
@@ -80,6 +91,13 @@ export default function TableSusenasMasuk({
         </p>
       </div>
     );
+  const toggleSort = (field: string) => {
+    if (orderBy === field) {
+      updateUrl(1, limit, field, order === "asc" ? "desc" : "asc");
+    } else {
+      updateUrl(1, limit, field, "asc");
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -119,9 +137,7 @@ export default function TableSusenasMasuk({
             <TableHead className="text-slate-700 font-semibold">
               Nagari
             </TableHead>
-            <TableHead className="text-slate-700 font-semibold">
-              Nama PML
-            </TableHead>
+
             <TableHead className="text-slate-700 font-semibold">
               Kode SLS
             </TableHead>
@@ -131,9 +147,48 @@ export default function TableSusenasMasuk({
             <TableHead className="text-slate-700 font-semibold">
               No Ruta
             </TableHead>
-            <TableHead className="text-slate-700 font-semibold">NKS</TableHead>
-            <TableHead className="text-slate-700 font-semibold">
-              Tanggal Pemasukan
+            <TableHead
+              onClick={() => toggleSort("nks")}
+              className="text-blue-700 font-semibold cursor-pointer select-none"
+            >
+              <div className="flex items-center gap-1">
+                NKS
+                {orderBy === "nks" &&
+                  (order === "asc" ? (
+                    <ArrowUp size={14} />
+                  ) : (
+                    <ArrowDown size={14} />
+                  ))}
+              </div>
+            </TableHead>
+            <TableHead
+              onClick={() => toggleSort("nama_petugas_entri")}
+              className="text-blue-700 font-semibold cursor-pointer select-none"
+            >
+              <div className="flex items-center gap-1">
+                Petugas Entri
+                {orderBy === "nama_petugas_entri" &&
+                  (order === "asc" ? (
+                    <ArrowUp size={14} />
+                  ) : (
+                    <ArrowDown size={14} />
+                  ))}
+              </div>
+            </TableHead>
+
+            <TableHead
+              onClick={() => toggleSort("tgl_entri")}
+              className="text-blue-700 font-semibold cursor-pointer select-none"
+            >
+              <div className="flex items-center gap-1">
+                Tanggal Entri
+                {orderBy === "tgl_entri" &&
+                  (order === "asc" ? (
+                    <ArrowUp size={14} />
+                  ) : (
+                    <ArrowDown size={14} />
+                  ))}
+              </div>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -154,20 +209,20 @@ export default function TableSusenasMasuk({
                 {item.kecamatan.kecamatan}
               </TableCell>
               <TableCell className="text-slate-700">{item.nagari}</TableCell>
-
-              <TableCell className="text-slate-800 ">{item.nama_PML}</TableCell>
-
               <TableCell className="text-slate-600">{item.sls}</TableCell>
               <TableCell className="text-slate-600">
                 {item.kode_sls_subsls}
               </TableCell>
-              <TableCell className="text-slate-600">{item.no_ruta}</TableCell>
+              <TableCell className="text-slate-800 ">{item.no_ruta}</TableCell>
               <TableCell className="text-slate-600 font-medium">
                 {item.nks}
               </TableCell>
+              <TableCell className="text-slate-600">
+                {item.nama_petugas_entri}
+              </TableCell>
 
               <TableCell className="text-slate-600 whitespace-nowrap">
-                {new Date(item.tgl_masuk).toLocaleDateString("id-ID", {
+                {new Date(item.tgl_entri).toLocaleDateString("id-ID", {
                   day: "2-digit",
                   month: "long",
                   year: "numeric",
