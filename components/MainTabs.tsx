@@ -1,15 +1,21 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardPage from "@/app/(protected)/_components/DashboardPage";
 import SesunasPage from "@/app/(protected)/_components/susenasPage";
 import SerutiPage from "@/app/(protected)/_components/SerutiPage";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function MainTabs() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const activeTab = searchParams.get("hal") ?? "dashboard";
+  const tabVariants = {
+    initial: { opacity: 0, y: 10 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -10 },
+  };
 
   const onTabChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -67,15 +73,46 @@ export default function MainTabs() {
       </TabsList>
 
       {/* CONTENT */}
-      <TabsContent value="dashboard">
-        <DashboardPage />
-      </TabsContent>
-      <TabsContent value="susenas">
-        <SesunasPage />
-      </TabsContent>
-      <TabsContent value="seruti">
-        <SerutiPage />
-      </TabsContent>
+      <AnimatePresence mode="wait">
+        {activeTab === "dashboard" && (
+          <motion.div
+            key="dashboard"
+            variants={tabVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.25, ease: "easeIn" }}
+          >
+            <DashboardPage />
+          </motion.div>
+        )}
+
+        {activeTab === "susenas" && (
+          <motion.div
+            key="susenas"
+            variants={tabVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.25, ease: "easeIn" }}
+          >
+            <SesunasPage />
+          </motion.div>
+        )}
+
+        {activeTab === "seruti" && (
+          <motion.div
+            key="seruti"
+            variants={tabVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.25, ease: "easeIn" }}
+          >
+            <SerutiPage />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Tabs>
   );
 }
