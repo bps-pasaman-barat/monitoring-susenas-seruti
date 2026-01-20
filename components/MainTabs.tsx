@@ -19,7 +19,7 @@ export default function MainTabs() {
   return (
     <Tabs value={activeTab} onValueChange={onTabChange}>
       {/* TAB BUTTON */}
-      <TabsList className="mx-auto  grid w-fit grid-cols-3 gap-4 bg-transparent shadow-md  mb-4">
+      <TabsList className="mx-auto py-0 grid w-fit grid-cols-3 gap-4 bg-transparent shadow-md  mb-4">
         <TabsTrigger
           value="dashboard"
           className="

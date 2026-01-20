@@ -3,11 +3,11 @@ import Link from "next/link";
 import { ChartEntri } from "./ChartEntri";
 import { ChartMasuk } from "./ChartMasuk";
 import { kecamatan } from "@/constants";
-
+import { Button } from "@/components/ui/button";
 
 type Props = {
-  totalEntri: Record<string, number>; 
-  totalMasuk: Record<string, number>; 
+  totalEntri: Record<string, number>;
+  totalMasuk: Record<string, number>;
   label: string;
   className1?: string;
   className2?: string;
@@ -40,7 +40,7 @@ export default function MonitoringCard({
                  transition-all duration-300 ease-out
                  hover:shadow-md hover:-translate-y-1"
     >
-      <h2 className="text-center text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      <h2 className="text-center text-xl font-semibold uppercase tracking-wide text-muted-foreground">
         {label}
       </h2>
 
@@ -50,13 +50,15 @@ export default function MonitoringCard({
             <p className="text-xs text-muted-foreground capitalize">
               Total Data Masuk
             </p>
-            <Link
-              href={`detail/${label.toLocaleLowerCase()}/masuk`}
-              className="text-orange-600"
-              target="_blank"
-            >
-              detail per kecamatan
-            </Link>
+            <Button>
+              <Link
+                href={`detail/${label.toLocaleLowerCase()}-masuk`}
+                className="text-white uppercase"
+                target="_blank"
+              >
+                detail
+              </Link>
+            </Button>
           </div>
           <ChartMasuk totalMasuk={dataMasuk} />
           <p className="text-3xl font-bold">{sumMasuk}</p>
@@ -65,13 +67,15 @@ export default function MonitoringCard({
         <div className={`rounded-xl border p-4 ${className1}`}>
           <div className="flex items-center justify-between">
             <p className="text-xs text-muted-foreground">Total Data Entri</p>
-            <Link
-              href={`detail/${label.toLocaleLowerCase()}/entri`}
-              className="text-orange-600"
-              target="_blank"
-            >
-              detail per kecamatan
-            </Link>
+            <Button>
+              <Link
+                href={`detail/${label.toLocaleLowerCase()}-entri`}
+                className="text-white uppercase"
+                target="_blank"
+              >
+                detail
+              </Link>
+            </Button>
           </div>
           <ChartEntri totalEntri={dataEntri} />
           <p className="text-3xl font-bold">{sumEntri}</p>
