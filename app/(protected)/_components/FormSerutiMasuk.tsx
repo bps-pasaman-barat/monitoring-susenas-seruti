@@ -20,7 +20,7 @@ export default function FormSerutiMasuk() {
     resolver: zodResolver(SerutiSchemaMasuk),
     defaultValues: {
       kecamatanId: 0,
-      kabupaten: "",
+      kabupaten: "Pasaman Barat",
       kode_sls_subsls: "",
       nagari: "",
       nama_PML: "",
@@ -28,7 +28,7 @@ export default function FormSerutiMasuk() {
       tgl_masuk: undefined,
       nks: "",
       no_ruta: "",
-      provinsi: "",
+      provinsi: "Sumatera Barat",
       sls: "",
     },
   });
