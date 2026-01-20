@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
 import {
+  ArrowDown,
+  ArrowUp,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
@@ -31,14 +33,23 @@ export default function TableSusenasMasuk({
 
   const page = Number(searchParams.get("page") ?? 1);
   const limit = Number(searchParams.get("limit") ?? 10);
+  const orderBy = searchParams.get("orderBy") ?? "nks";
+  const order = searchParams.get("order") ?? "asc";
 
   const [data, setData] = useState<SusenasMasukResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const updateUrl = (newPage: number, newLimit = limit) => {
+  const updateUrl = (
+    newPage: number,
+    newLimit = limit,
+    newOrderBy = orderBy,
+    newOrder = order,
+  ) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", newPage.toString());
     params.set("limit", newLimit.toString());
+    params.set("orderBy", newOrderBy);
+    params.set("order", newOrder);
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
@@ -47,7 +58,7 @@ export default function TableSusenasMasuk({
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/backend/susenas-masuk/${kecamatan}?page=${page}&limit=${limit}`,
+          `/api/backend/susenas-masuk/${kecamatan}?page=${page}&limit=${limit}&orderBy=${orderBy}&order=${order}`,
         );
         if (!res.ok) throw new Error("Fetch gagal");
         const result: SusenasMasukResponse = await res.json();
@@ -60,7 +71,7 @@ export default function TableSusenasMasuk({
     };
 
     fetchData();
-  }, [kecamatan, page, limit]);
+  }, [kecamatan, page, limit, orderBy, order]);
 
   if (loading)
     return (
@@ -80,6 +91,13 @@ export default function TableSusenasMasuk({
         </p>
       </div>
     );
+  const toggleSort = (field: string) => {
+    if (orderBy === field) {
+      updateUrl(1, limit, field, order === "asc" ? "desc" : "asc");
+    } else {
+      updateUrl(1, limit, field, "asc");
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -131,9 +149,33 @@ export default function TableSusenasMasuk({
             <TableHead className="text-slate-700 font-semibold">
               No Ruta
             </TableHead>
-            <TableHead className="text-slate-700 font-semibold">NKS</TableHead>
-            <TableHead className="text-slate-700 font-semibold">
-              Tanggal Pemasukan
+            <TableHead
+              onClick={() => toggleSort("nks")}
+              className="text-blue-700 font-semibold cursor-pointer select-none"
+            >
+              <div className="flex items-center gap-1">
+                NKS
+                {orderBy === "nks" &&
+                  (order === "asc" ? (
+                    <ArrowUp size={14} />
+                  ) : (
+                    <ArrowDown size={14} />
+                  ))}
+              </div>
+            </TableHead>
+            <TableHead
+              onClick={() => toggleSort("tgl_entri")}
+              className="text-blue-700 font-semibold cursor-pointer select-none"
+            >
+              <div className="flex items-center gap-1">
+                Tanggal Pemasukan
+                {orderBy === "tgl_entri" &&
+                  (order === "asc" ? (
+                    <ArrowUp size={14} />
+                  ) : (
+                    <ArrowDown size={14} />
+                  ))}
+              </div>
             </TableHead>
           </TableRow>
         </TableHeader>

@@ -8,6 +8,10 @@ function slugToTitle(slug: string) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+const ORDERABLE_FIELDS = ["nks", "tgl_masuk"] as const;
+type OrderableField = (typeof ORDERABLE_FIELDS)[number];
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ kecamatan: string }> },
@@ -21,6 +25,19 @@ export async function GET(
     const page = Number(searchParams.get("page") ?? 1);
     const limit = Number(searchParams.get("limit") ?? 10);
     const skip = (page - 1) * limit;
+
+    const orderByParam = searchParams.get("orderBy") as OrderableField | null;
+    const orderParam = searchParams.get("order") === "desc" ? "desc" : "asc";
+
+    const orderByField: OrderableField = ORDERABLE_FIELDS.includes(
+      orderByParam as OrderableField,
+    )
+      ? orderByParam!
+      : "nks";
+
+    const orderBy: Record<string, "asc" | "desc"> = {
+      [orderByField]: orderParam,
+    };
     const total = await prisma.susenasMasuk.count({
       where: {
         kecamatan: {
@@ -40,9 +57,7 @@ export async function GET(
       },
       skip,
       take: limit,
-      orderBy: {
-        nks: "asc",
-      },
+      orderBy,
     });
 
     return NextResponse.json({
@@ -55,6 +70,8 @@ export async function GET(
         limit,
         total,
         totalPages: Math.ceil(total / limit),
+        orderBy: orderByField,
+        order: orderParam,
       },
     });
   } catch (error) {
