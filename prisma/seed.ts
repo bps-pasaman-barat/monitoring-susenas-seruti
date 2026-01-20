@@ -16,12 +16,7 @@ async function main() {
    */
 
   // ambil semua id kecamatan yg valid
-  const kecamatanIds = (
-    await prisma.kecamatan.findMany({
-      select: { id: true },
-    })
-  ).map((k) => k.id);
-
+1
   const hashedPassword = await bcrypt.hash("useradmin", 10);
 
   await prisma.user.createMany({
@@ -40,25 +35,25 @@ async function main() {
     data: kecamatans,
     skipDuplicates: true,
   });
-  await prisma.susenasEntri.createMany({
-    data: generateSusenasEntri(500, kecamatanIds),
-    skipDuplicates: true,
-  });
+  // await prisma.susenasEntri.createMany({
+  //   data: generateSusenasEntri(500, kecamatanIds),
+  //   skipDuplicates: true,
+  // });
 
-  await prisma.serutiEntri.createMany({
-    data: generateSerutiEntri(500, kecamatanIds),
-    skipDuplicates: true,
-  });
+  // await prisma.serutiEntri.createMany({
+  //   data: generateSerutiEntri(500, kecamatanIds),
+  //   skipDuplicates: true,
+  // });
 
-  await prisma.susenasMasuk.createMany({
-    data: generateSusenasMasuk(500, kecamatanIds),
-    skipDuplicates: true,
-  });
+  // await prisma.susenasMasuk.createMany({
+  //   data: generateSusenasMasuk(500, kecamatanIds),
+  //   skipDuplicates: true,
+  // });
 
-  await prisma.serutiMasuk.createMany({
-    data: generateSerutiMasuk(500, kecamatanIds),
-    skipDuplicates: true,
-  });
+  // await prisma.serutiMasuk.createMany({
+  //   data: generateSerutiMasuk(500, kecamatanIds),
+  //   skipDuplicates: true,
+  // });
 }
 
 main()
