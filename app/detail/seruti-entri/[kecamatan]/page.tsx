@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Seruti masuk",
+  title: "Seruti Entri",
 };
 
 import ButtonBack from "@/components/boilerplate/ButtonBack";
-import TableSerutiMasuk from "./_components/TableSerutiMasuk";
+import TableSerutiEntri from "./_components/TableSerutiEntri";
 
 export default async function Page({
   params,
@@ -19,9 +19,9 @@ export default async function Page({
       <div className="p-6">
         <ButtonBack linkUrl="/detail/seruti-masuk" />
         <h1 className="text-2xl font-bold mb-4">
-          Seruti Masuk Kecamatan {kecamatan}
+          Seruti Entri Kecamatan {kecamatan}
         </h1>
-        <TableSerutiMasuk kecamatan={kecamatan} />
+        <TableSerutiEntri kecamatan={kecamatan} />
       </div>
     </>
   );
