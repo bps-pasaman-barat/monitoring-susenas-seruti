@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { useTransition } from "react";
 import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
 import NagariField from "@/components/boilerplate/NagariField";
+import { UploadDokumenMasukCard } from "@/components/UploadDokumenMasuk";
 
 export default function FormSerutiMasuk() {
   const [isPending, startTransition] = useTransition();
@@ -88,6 +89,7 @@ export default function FormSerutiMasuk() {
             </Button>
           </form>
         </FormProvider>
+        <UploadDokumenMasukCard title="Seruti" url="/api/upload-seruti-masuk" />
       </div>
     </>
   );

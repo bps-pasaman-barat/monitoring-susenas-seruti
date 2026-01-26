@@ -97,9 +97,33 @@ model SusenasMasuk {
   @@map("susenas_masuk")
 }
 
-model UploadedFile {
+model UploadedTemplate {
   id        Int      @id @default(autoincrement())
-  filename  String
+  filename  String @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+model UploadedSusenasMasuk {
+  id        Int      @id @default(autoincrement())
+  filename  String @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+model UploadedSerutiMasuk {
+  id        Int      @id @default(autoincrement())
+  filename  String @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+model UploadedSusenasEntri {
+  id        Int      @id @default(autoincrement())
+  filename  String @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+model UploadedSerutiEntri {
+  id        Int      @id @default(autoincrement())
+  filename  String @unique
   path      String
   createdAt DateTime @default(now())
 }

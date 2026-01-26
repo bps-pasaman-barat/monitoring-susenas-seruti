@@ -14,7 +14,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid id" }, { status: 400 });
     }
 
-    const file = await prisma.uploadedFile.findUnique({
+    const file = await prisma.uploadedTemplate.findUnique({
       where: { id },
     });
 
@@ -22,7 +22,7 @@ export async function DELETE(
       return NextResponse.json({ error: "File not found" }, { status: 404 });
     }
 
-    await prisma.uploadedFile.delete({
+    await prisma.uploadedTemplate.delete({
       where: { id },
     });
 

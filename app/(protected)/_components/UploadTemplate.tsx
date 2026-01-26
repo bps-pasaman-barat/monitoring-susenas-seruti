@@ -6,13 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
-
-type UploadedFile = {
-  id: number;
-  filename: string;
-  path: string;
-  createdAt: string;
-};
+import { UploadedFile } from "@/types";
 
 export default function UploadTemplatePage() {
   const [file, setFile] = useState<File | null>(null);
@@ -26,7 +20,7 @@ export default function UploadTemplatePage() {
 
   async function fetchFiles() {
     try {
-      const res = await fetch("/api/upload");
+      const res = await fetch("/api/upload-template");
       if (!res.ok) throw new Error("Failed fetch");
       const data = await res.json();
       setFiles(data);
@@ -43,7 +37,7 @@ export default function UploadTemplatePage() {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/upload", {
+      const res = await fetch("/api/upload-template", {
         method: "POST",
         body: formData,
       });
@@ -58,7 +52,7 @@ export default function UploadTemplatePage() {
       fetchFiles();
     } catch (err) {
       console.error(err);
-      toast.error("Upload gagal");
+      toast.error("Upload gagal karena sudah ada file dengan nama yg sama");
     } finally {
       setLoading(false);
     }
@@ -70,7 +64,7 @@ export default function UploadTemplatePage() {
 
   const handleDelete = async (id: number) => {
     try {
-      const res = await fetch(`/api/upload/${id}`, {
+      const res = await fetch(`/api/upload-template/${id}`, {
         method: "DELETE",
       });
 
@@ -97,7 +91,6 @@ export default function UploadTemplatePage() {
 
             <Input
               ref={inputRef}
-              id="picture"
               type="file"
               accept=".xlsx"
               onChange={handleFileChange}

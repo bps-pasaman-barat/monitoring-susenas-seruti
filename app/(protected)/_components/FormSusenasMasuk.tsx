@@ -11,6 +11,7 @@ import { SusenasMasukForm, SusenasMasukSchema } from "@/schema/form.schema";
 import { saveSusenasMasuk } from "@/app/server/sesunas.actions";
 import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
 import NagariField from "@/components/boilerplate/NagariField";
+import { UploadDokumenMasukCard } from "@/components/UploadDokumenMasuk";
 
 export default function FormSesunasMasuk() {
   const [isPending, startTransition] = useTransition();
@@ -56,7 +57,7 @@ export default function FormSesunasMasuk() {
       <h1 className="text-xl text-center font-semibold uppercase mt-10 mb-2">
         dokumen yang masuk susenas
       </h1>
-      <div className="space-y-4 w-full border p-4">
+      <div className="space-y-4 w-full border p-4 mb-5">
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -88,6 +89,7 @@ export default function FormSesunasMasuk() {
           </form>
         </FormProvider>
       </div>
+      <UploadDokumenMasukCard title="Susenas" url="/api/upload-susenas-masuk" />
     </>
   );
 }

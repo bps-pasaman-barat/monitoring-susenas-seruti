@@ -11,6 +11,7 @@ import { saveSerutiEntri } from "@/app/server/seruti.actions";
 import { toast } from "sonner";
 import NagariField from "@/components/boilerplate/NagariField";
 import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
+import { UploadDokumenEntriCard } from "@/components/UploadDokumenEntri";
 
 export default function FormSerutiEntri() {
   const [isPending, startTransition] = useTransition();
@@ -91,6 +92,7 @@ export default function FormSerutiEntri() {
           </form>
         </FormProvider>
       </div>
+      <UploadDokumenEntriCard title="Seruti" url="/api/upload-seruti-entri" />
     </>
   );
 }

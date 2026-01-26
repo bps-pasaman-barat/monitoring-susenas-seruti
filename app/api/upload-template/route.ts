@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
     fs.writeFileSync(filePath, buffer);
 
-    const saved = await prisma.uploadedFile.create({
+    const saved = await prisma.uploadedTemplate.create({
       data: {
         filename,
         path: `/uploads/${filename}`,
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
-    const files = await prisma.uploadedFile.findMany({
+    const files = await prisma.uploadedTemplate.findMany({
       orderBy: { createdAt: "desc" },
     });
 
@@ -51,4 +51,3 @@ export async function GET() {
     );
   }
 }
-

@@ -3,22 +3,12 @@ export type Kecamatan = {
   kecamatan: string;
 };
 
-// "id": 14,
-// "kecamatanId": 1,
-// "provinsi": "Sumatera Barat",
-// "kabupaten": "Pasaman Barat",
-// "nagari": "Ornfort",
-// "sls": "37",
-// "kode_sls_subsls": "9509",
-// "nks": "279156",
-// "no_ruta": "419",
-// "nama_petugas_entri": "Mr. Abel Strosin-Robel PhD",
-// "tgl_entri": "2026-02-28T05:49:34.085Z",
-// "kecamatan": {
-// 	"id": 1,
-// 	"kecamatan": "Sungai Beremas"
-// }
-
+export type UploadedFile = {
+  id: number;
+  filename: string;
+  path: string;
+  createdAt: string;
+};
 export type SusenasEntriItem = {
   id: number;
   kecamatanId: number;

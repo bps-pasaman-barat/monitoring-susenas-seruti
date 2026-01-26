@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { saveSusenasEntri } from "@/app/server/sesunas.actions";
 import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
 import NagariField from "@/components/boilerplate/NagariField";
+import { UploadDokumenEntriCard } from "@/components/UploadDokumenEntri";
 
 export default function FormSesunasEntri() {
   const [isPending, startTransition] = useTransition();
@@ -90,6 +91,7 @@ export default function FormSesunasEntri() {
             </Button>
           </form>
         </FormProvider>
+        <UploadDokumenEntriCard url="/api/upload-susenas-entri" title="Susenas"/>
       </div>
     </>
   );
