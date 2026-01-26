@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client"
-  url=  env("DATABASE_URL")
   output   = "../lib/generated/prisma"
 }
 
@@ -96,4 +95,11 @@ model SusenasMasuk {
   tgl_masuk       DateTime
 
   @@map("susenas_masuk")
+}
+
+model UploadedFile {
+  id        Int      @id @default(autoincrement())
+  filename  String
+  path      String
+  createdAt DateTime @default(now())
 }

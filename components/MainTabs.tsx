@@ -5,6 +5,7 @@ import DashboardPage from "@/app/(protected)/_components/DashboardPage";
 import SesunasPage from "@/app/(protected)/_components/susenasPage";
 import SerutiPage from "@/app/(protected)/_components/SerutiPage";
 import { motion, AnimatePresence } from "framer-motion";
+import UploadTemplatePage from "@/app/(protected)/_components/UploadTemplate";
 
 export default function MainTabs() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function MainTabs() {
   return (
     <Tabs value={activeTab} onValueChange={onTabChange}>
       {/* TAB BUTTON */}
-      <TabsList className="mx-auto py-0 grid w-fit grid-cols-3 gap-4 bg-transparent shadow-md  mb-4">
+      <TabsList className="mx-auto py-0 grid w-fit grid-cols-4 gap-4 bg-transparent shadow-md  mb-4">
         <TabsTrigger
           value="dashboard"
           className="
@@ -70,6 +71,20 @@ export default function MainTabs() {
         >
           INPUT DATA SERUTI
         </TabsTrigger>
+        <TabsTrigger
+          value="upload"
+          className="
+      rounded-none
+      px-4 py-1
+      text-gray-500
+      border-b-2 border-transparent
+         data-[state=active]:bg-blue-100
+      data-[state=active]:text-blue-700
+      data-[state=active]:border-blue-700
+    "
+        >
+          UPLOAD TEMPLATE
+        </TabsTrigger>
       </TabsList>
 
       {/* CONTENT */}
@@ -110,6 +125,18 @@ export default function MainTabs() {
             transition={{ duration: 0.25, ease: "easeIn" }}
           >
             <SerutiPage />
+          </motion.div>
+        )}
+        {activeTab === "upload" && (
+          <motion.div
+            key="upload"
+            variants={tabVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.25, ease: "easeIn" }}
+          >
+            <UploadTemplatePage />
           </motion.div>
         )}
       </AnimatePresence>

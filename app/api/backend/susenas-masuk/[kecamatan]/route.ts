@@ -1,14 +1,13 @@
 import { slugToTitle } from "@/helper/slug";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/lib/generated/prisma/client";
-import { NextResponse } from "next/server";
-
+import { NextRequest, NextResponse } from "next/server";
 
 const ORDERABLE_FIELDS = ["nks", "tgl_masuk"] as const;
 type OrderableField = (typeof ORDERABLE_FIELDS)[number];
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ kecamatan: string }> },
 ) {
   try {
