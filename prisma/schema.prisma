@@ -1,0 +1,178 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  password String
+  role     String @default("user")
+}
+
+model DefaultKecamatan {
+  id     Int             @id @default(autoincrement())
+  nama   String          @unique
+  nagari DefaultNagari[]
+}
+
+model DefaultNagari {
+  id          Int              @id @default(autoincrement())
+  nama        String
+  kecamatanId Int
+  kecamatan   DefaultKecamatan @relation(fields: [kecamatanId], references: [id])
+
+  @@unique([nama, kecamatanId])
+  @@index([kecamatanId])
+}
+
+model Kecamatan {
+  id           Int            @id @default(autoincrement())
+  kecamatan    String         @unique
+  Nagari       Nagari[]
+  SerutiEntri  SerutiEntri[]
+  SerutiMasuk  SerutiMasuk[]
+  SusenasEntri SusenasEntri[]
+  SusenasMasuk SusenasMasuk[]
+}
+
+model Nagari {
+  id          Int       @id @default(autoincrement())
+  nama        String
+  kecamatanId Int
+  kecamatan   Kecamatan @relation(fields: [kecamatanId], references: [id])
+
+  @@index([kecamatanId])
+}
+
+model SerutiEntri {
+  id                 Int       @id @default(autoincrement())
+  kecamatanId        Int
+  provinsi           String
+  kabupaten          String
+  nagari             String
+  sls                String
+  kode_sls_subsls    String
+  nks                String    @unique
+  no_ruta            String
+  nama_petugas_entri String
+  tgl_entri          DateTime
+  kecamatan          Kecamatan @relation(fields: [kecamatanId], references: [id])
+
+  @@index([kecamatanId])
+}
+
+model SerutiMasuk {
+  id              Int       @id @default(autoincrement())
+  kecamatanId     Int
+  provinsi        String
+  kabupaten       String
+  nagari          String
+  sls             String
+  kode_sls_subsls String
+  nks             String    @unique
+  nama_PML        String
+  nama_PPL        String
+  no_ruta         String
+  tgl_masuk       DateTime
+  kecamatan       Kecamatan @relation(fields: [kecamatanId], references: [id])
+
+  @@index([kecamatanId])
+}
+
+model SusenasEntri {
+  id                 Int       @id @default(autoincrement())
+  kecamatanId        Int
+  provinsi           String
+  kabupaten          String
+  nagari             String
+  sls                String
+  kode_sls_subsls    String
+  nks                String    @unique
+  no_ruta            String
+  nama_petugas_entri String
+  tgl_entri          DateTime
+  kecamatan          Kecamatan @relation(fields: [kecamatanId], references: [id])
+
+  @@index([kecamatanId])
+}
+
+model SusenasMasuk {
+  id              Int       @id @default(autoincrement())
+  kecamatanId     Int
+  provinsi        String
+  kabupaten       String
+  nagari          String
+  sls             String
+  kode_sls_subsls String
+  nks             String    @unique
+  nama_PML        String
+  nama_PPL        String
+  no_ruta         String
+  tgl_masuk       DateTime
+  kecamatan       Kecamatan @relation(fields: [kecamatanId], references: [id])
+
+  @@index([kecamatanId])
+}
+
+model UploadedTemplate {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+
+model UploadedSusenasMasuk {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+
+model UploadedSerutiMasuk {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+
+model UploadedSusenasEntri {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+
+model UploadedSerutiEntri {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  path      String
+  createdAt DateTime @default(now())
+}
+
+model DataNKS {
+  id            Int    @id @default(autoincrement())
+  kodeProvinsi  String
+  kodeKabupaten String
+  kodeKecamatan String
+  kodeNagari    String
+  namaProvinsi  String
+  namaKabupaten String
+  namaKecamatan String
+  namaNagari    String
+  kodeSls       String
+  kodeSubSls    String
+  nks           String @unique
+  namaSls       String
+}
