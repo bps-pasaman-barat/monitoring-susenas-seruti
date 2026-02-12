@@ -50,9 +50,9 @@ export default function MainTabs({ role }: { role: string }) {
       px-4 py-1
       text-gray-500
       border-b-2 border-transparent
-      data-[state=active]:text-blue-700
-      data-[state=active]:bg-blue-100
-      data-[state=active]:border-blue-700
+      data-[state=active]:text-green-700
+      data-[state=active]:bg-green-100
+      data-[state=active]:border-green-700
     "
         >
           INPUT DATA SUSENAS

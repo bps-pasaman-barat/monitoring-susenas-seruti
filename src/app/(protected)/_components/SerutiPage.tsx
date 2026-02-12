@@ -13,50 +13,54 @@ export default function SerutiPage() {
     animate: { opacity: 1, x: 0 },
     exit: { opacity: 0, x: 40 },
   };
-
   return (
-    <Tabs
-      value={activeTab}
-      onValueChange={setActiveTab}
-      className="flex w-full flex-row  items-center"
-    >
-      <TabsList className="flex h-40 flex-col bg-blue-300">
-        <TabsTrigger className="w-full justify-start uppercase" value="entri">
-          Dokumen Entri
-        </TabsTrigger>
-        <TabsTrigger className="w-full justify-start uppercase" value="masuk">
-          Dokumen Masuk
-        </TabsTrigger>
-      </TabsList>
+    <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <div className="flex w-full gap-6 justify-center">
+        <TabsList className=" bg-white rounded-lg shadow-md">
+          <TabsTrigger
+            className="w-full justify-start px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-slate-50 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+            value="entri"
+          >
+            Dokumen Entri
+          </TabsTrigger>
+          <TabsTrigger
+            className="w-full justify-start px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-slate-50 data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+            value="masuk"
+          >
+            Dokumen Masuk
+          </TabsTrigger>
+        </TabsList>
+      </div>
+      <div className="flex-1">
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <AnimatePresence mode="wait">
+            {activeTab === "entri" && (
+              <motion.div
+                key="entri"
+                variants={slideVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                <FormSerutiEntri />
+              </motion.div>
+            )}
 
-      <div className="relative flex-1 overflow-hidden ">
-        <AnimatePresence mode="wait">
-          {activeTab === "entri" && (
-            <motion.div
-              key="entri"
-              variants={slideVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            >
-              <FormSerutiEntri />
-            </motion.div>
-          )}
-
-          {activeTab === "masuk" && (
-            <motion.div
-              key="masuk"
-              variants={slideVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            >
-              <FormSerutiMasuk />
-            </motion.div>
-          )}
-        </AnimatePresence>
+            {activeTab === "masuk" && (
+              <motion.div
+                key="masuk"
+                variants={slideVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                <FormSerutiMasuk />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </Tabs>
   );
