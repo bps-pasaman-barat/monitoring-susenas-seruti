@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   try {

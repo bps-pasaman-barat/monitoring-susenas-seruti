@@ -1,9 +1,9 @@
-import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/db";
 
 export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ kecamatan: string }> }
+  _request: Request,
+  { params }: { params: Promise<{ kecamatan: string }> },
 ) {
   try {
     const kecamatanParam = decodeURIComponent((await params).kecamatan);
@@ -12,7 +12,6 @@ export async function GET(
       where: {
         kecamatan: {
           equals: kecamatanParam,
-        
         },
       },
       select: { id: true },

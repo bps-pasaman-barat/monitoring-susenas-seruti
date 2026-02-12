@@ -1,8 +1,8 @@
-import { verifySession } from "@/lib/session";
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import DashboardLayout from "@/components/dashboard/Layout";
-import { Metadata } from "next";
+import { verifySession } from "@/lib/session";
 import CardDashboard from "../_components/CardDashbaord";
 export const metadata: Metadata = {
   title: "Dashboard admin",

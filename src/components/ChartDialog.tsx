@@ -1,5 +1,8 @@
 "use client";
 
+import { ChartPieIcon } from "lucide-react";
+import { useState } from "react";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -10,9 +13,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { ChartPieIcon } from "lucide-react";
-import { useState } from "react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 type ChartKecProps = {
   kecamatan: string;
@@ -29,7 +29,7 @@ type ChartApiResponse = {
   };
 };
 
-const COLORS = ["#2563eb", "#e5e7eb"]; 
+const COLORS = ["#2563eb", "#e5e7eb"];
 
 export function ChartDialog({ kecamatan, title, tipe }: ChartKecProps) {
   const [open, setOpen] = useState(false);

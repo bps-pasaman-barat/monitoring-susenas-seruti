@@ -15,14 +15,12 @@ export default async function Page({
   const kecamatan = (await params).kecamatan;
 
   return (
-    <>
-      <div className="p-6">
-        <ButtonBack linkUrl="/detail/seruti-masuk" />
-        <h1 className="text-2xl font-bold mb-4">
-          Seruti Masuk Kecamatan {kecamatan}
-        </h1>
-        <TableSerutiMasuk kecamatan={kecamatan} />
-      </div>
-    </>
+    <div className="p-6">
+      <ButtonBack linkUrl="/detail/seruti-masuk" />
+      <h1 className="text-2xl font-bold mb-4">
+        Seruti Masuk Kecamatan {kecamatan}
+      </h1>
+      <TableSerutiMasuk kecamatan={kecamatan} />
+    </div>
   );
 }

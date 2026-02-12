@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const totalUser = await prisma.user.count();
     return NextResponse.json({

@@ -1,5 +1,5 @@
 "use client";
-import { PieChart, Pie, Cell } from "recharts";
+import { Cell, Pie, PieChart } from "recharts";
 
 type ChartData = { name: string; value: number };
 

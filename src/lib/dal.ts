@@ -1,24 +1,22 @@
+import "server-only";
 
-import 'server-only'
-
-import { cache } from 'react'
-import { verifySession } from './session'
-import { prisma } from './db'
-
+import { cache } from "react";
+import { prisma } from "./db";
+import { verifySession } from "./session";
 
 export const getUser = cache(async () => {
-  const session = await verifySession()
-  if (!session) return null
+  const session = await verifySession();
+  if (!session) return null;
 
   try {
     const user = await prisma.user.findUnique({
       where: {
         id: session.userId,
       },
-    })
-    return user
+    });
+    return user;
   } catch (error) {
-    console.error('Failed to fetch user', error)
-    return null
+    console.error("Failed to fetch user", error);
+    return null;
   }
-})
+});

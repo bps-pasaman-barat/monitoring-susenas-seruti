@@ -1,17 +1,20 @@
 "use client";
 
-import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { InputTextField } from "@/components/boilerplate/InputField";
-import { InputDateField } from "@/components/boilerplate/FormDate";
-import { toast } from "sonner";
 import { useTransition } from "react";
-import { SusenasMasukForm, SusenasMasukSchema } from "@/schema/form.schema";
+import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { saveSusenasMasuk } from "@/app/server/sesunas.actions";
+import { InputDateField } from "@/components/boilerplate/FormDate";
+import { InputTextField } from "@/components/boilerplate/InputField";
 import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
 import NagariField from "@/components/boilerplate/NagariField";
 import { UploadDokumenMasukCard } from "@/components/UploadDokumenMasuk";
+import { Button } from "@/components/ui/button";
+import {
+  type SusenasMasukForm,
+  SusenasMasukSchema,
+} from "@/schema/form.schema";
 import TableUploadMasukSusenas from "./TableUploadMasukSusenas";
 
 export default function FormSesunasMasuk() {
@@ -47,7 +50,9 @@ export default function FormSesunasMasuk() {
         if (result.errors) {
           Object.values(result.errors)
             .flat()
-            .forEach((err) => toast.error(err));
+            .forEach((err) => {
+              toast.error(err);
+            });
         }
       }
     });

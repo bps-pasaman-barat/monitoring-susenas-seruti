@@ -1,8 +1,8 @@
 "use client";
 
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import FormSerutiEntri from "./FormSerutiEntri";
 import FormSerutiMasuk from "./FormSerutiMasuk";

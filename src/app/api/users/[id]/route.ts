@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { prisma } from "@/lib/db";
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/db";
 
 export async function DELETE(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
@@ -35,6 +35,7 @@ export async function PATCH(
     const body = await request.json().catch(() => ({}));
     const { role, password } = body ?? {};
 
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic update object
     const data: any = {};
     if (role) data.role = role;
     if (password) data.password = await bcrypt.hash(password, 10);

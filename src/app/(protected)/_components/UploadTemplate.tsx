@@ -1,12 +1,13 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
 import { UploadedFile } from "@/types";
+
 
 export default function UploadTemplatePage() {
   const [file, setFile] = useState<File | null>(null);
@@ -18,7 +19,7 @@ export default function UploadTemplatePage() {
     setFile(e.target.files?.[0] ?? null);
   }
 
-  async function fetchFiles() {
+  const fetchFiles = useCallback(async () => {
     try {
       const res = await fetch("/api/upload-template");
       if (!res.ok) throw new Error("Failed fetch");
@@ -27,7 +28,7 @@ export default function UploadTemplatePage() {
     } catch (err) {
       console.error(err);
     }
-  }
+  }, []);
 
   async function handleSubmit() {
     if (!file) return;
@@ -60,7 +61,7 @@ export default function UploadTemplatePage() {
 
   useEffect(() => {
     fetchFiles();
-  }, []);
+  }, [fetchFiles]);
 
   const handleDelete = async (id: number) => {
     try {

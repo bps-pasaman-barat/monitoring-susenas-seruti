@@ -1,6 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 import { prisma } from "@/lib/db";
 
 export async function POST(req: Request) {
@@ -28,24 +28,19 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(await file.arrayBuffer());
 
     fs.writeFileSync(filePath, buffer);
-    let result;
-    if (existing) {
-      // update record lama (opsional, kalau path sama bisa skip update)
-      result = await prisma.uploadedSusenasEntri.update({
-        where: { filename },
-        data: {
-          path: `/uploads-susenas-entri/${filename}`,
-        },
-      });
-    } else {
-      // buat record baru
-      result = await prisma.uploadedSusenasEntri.create({
-        data: {
-          filename,
-          path: `/uploads-susenas-entri/${filename}`,
-        },
-      });
-    }
+    const result = existing
+      ? await prisma.uploadedSusenasEntri.update({
+          where: { filename },
+          data: {
+            path: `/uploads-susenas-entri/${filename}`,
+          },
+        })
+      : await prisma.uploadedSusenasEntri.create({
+          data: {
+            filename,
+            path: `/uploads-susenas-entri/${filename}`,
+          },
+        });
 
     return NextResponse.json(result);
   } catch (err) {
@@ -53,5 +48,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
 }
-
-

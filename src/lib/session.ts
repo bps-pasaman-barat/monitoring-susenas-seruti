@@ -1,5 +1,5 @@
 import "server-only";
-import { SignJWT, jwtVerify } from "jose";
+import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 
 const secretKey = process.env.SESSION_SECRET;
@@ -21,7 +21,7 @@ export async function encrypt(payload: SessionPayload) {
 
 export async function decrypt(session: string | undefined = "") {
   if (!session) return null;
-  
+
   try {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
@@ -38,11 +38,16 @@ export async function createSession(userId: string, role: string) {
   const session = await encrypt({ userId, role, expiresAt });
 
   const cookieStore = await cookies();
-  
+
   console.log("DEBUG: Creating Session");
   console.log("DEBUG: NODE_ENV =", process.env.NODE_ENV);
-  console.log("DEBUG: DISABLE_SECURE_COOKIE =", process.env.DISABLE_SECURE_COOKIE);
-  const isSecure = process.env.NODE_ENV === "production" && process.env.DISABLE_SECURE_COOKIE !== "true";
+  console.log(
+    "DEBUG: DISABLE_SECURE_COOKIE =",
+    process.env.DISABLE_SECURE_COOKIE,
+  );
+  const isSecure =
+    process.env.NODE_ENV === "production" &&
+    process.env.DISABLE_SECURE_COOKIE !== "true";
   console.log("DEBUG: Secure Cookie Attribute =", isSecure);
 
   cookieStore.set("session", session, {
@@ -66,8 +71,13 @@ export async function updateSession() {
   const cookieStore = await cookies();
   console.log("DEBUG: Updating Session");
   console.log("DEBUG: NODE_ENV =", process.env.NODE_ENV);
-  console.log("DEBUG: DISABLE_SECURE_COOKIE =", process.env.DISABLE_SECURE_COOKIE);
-  const isSecure = process.env.NODE_ENV === "production" && process.env.DISABLE_SECURE_COOKIE !== "true";
+  console.log(
+    "DEBUG: DISABLE_SECURE_COOKIE =",
+    process.env.DISABLE_SECURE_COOKIE,
+  );
+  const isSecure =
+    process.env.NODE_ENV === "production" &&
+    process.env.DISABLE_SECURE_COOKIE !== "true";
   console.log("DEBUG: Secure Cookie Attribute =", isSecure);
 
   cookieStore.set("session", session, {

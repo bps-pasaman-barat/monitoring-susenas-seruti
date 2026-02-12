@@ -1,17 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
+import { Edit, Trash2 } from "lucide-react";
+import { type FormEvent, useState } from "react";
+import { toast } from "sonner";
+import useSWR, { mutate } from "swr";
 import DashboardLayout from "@/components/dashboard/Layout";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Trash2, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -23,10 +17,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { useState } from "react";
-import useSWR, { mutate } from "swr";
-import { toast } from "sonner";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 type UsersResp = {
   id: string;
@@ -51,7 +49,7 @@ export default function UserPage() {
 
       await mutate("/api/users");
     } catch (err) {
-      console.log(err)
+      console.log(err);
       toast.error("Gagal menghapus users");
     }
   }
@@ -62,8 +60,8 @@ export default function UserPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("user");
 
-  async function handleCreate(e?: any) {
-    e?.preventDefault();
+  async function handleCreate(e: FormEvent) {
+    e.preventDefault();
     if (!username || !password)
       return toast.error("Username dan password wajib diisi");
     if (password !== confirmPassword)
@@ -88,8 +86,10 @@ export default function UserPage() {
       setRole("user");
       setOpenCreate(false);
       await mutate("/api/users");
-    } catch (err: any) {
-      toast.error(err?.message || "Gagal membuat user");
+    } catch (err) {
+      // biome-ignore lint/suspicious/noExplicitAny: error handling
+      const error = err as any;
+      toast.error(error?.message || "Gagal membuat user");
     }
   }
   // edit user form state
@@ -109,13 +109,14 @@ export default function UserPage() {
     setEditOpen(true);
   }
 
-  async function handleEditSubmit(e?: any) {
-    e?.preventDefault();
+  async function handleEditSubmit(e: FormEvent) {
+    e.preventDefault();
     if (editPassword && editPassword !== editConfirmPassword)
       return toast.error("Password dan konfirmasi tidak cocok");
     if (!editingId) return toast.error("Invalid user");
 
     try {
+      // biome-ignore lint/suspicious/noExplicitAny: dynamic body construction
       const body: any = { role: editRole };
       if (editPassword) body.password = editPassword;
 
@@ -134,8 +135,10 @@ export default function UserPage() {
       setEditOpen(false);
       setEditingId(null);
       await mutate("/api/users");
-    } catch (err: any) {
-      toast.error(err?.message || "Gagal mengupdate user");
+    } catch (err) {
+      // biome-ignore lint/suspicious/noExplicitAny: error handling
+      const error = err as any;
+      toast.error(error?.message || "Gagal mengupdate user");
     }
   }
   return (
@@ -158,8 +161,14 @@ export default function UserPage() {
 
               <form onSubmit={handleCreate} className="space-y-4 mt-4">
                 <div>
-                  <label className="block text-sm font-medium">Username</label>
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium"
+                  >
+                    Username
+                  </label>
                   <input
+                    id="username"
                     className="mt-1 block w-full rounded-md border px-3 py-2"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -167,8 +176,14 @@ export default function UserPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">Password</label>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium"
+                  >
+                    Password
+                  </label>
                   <input
+                    id="password"
                     type="password"
                     className="mt-1 block w-full rounded-md border px-3 py-2"
                     value={password}
@@ -177,10 +192,14 @@ export default function UserPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">
+                  <label
+                    htmlFor="confirmPassword"
+                    className="block text-sm font-medium"
+                  >
                     Konfirmasi Password
                   </label>
                   <input
+                    id="confirmPassword"
                     type="password"
                     className="mt-1 block w-full rounded-md border px-3 py-2"
                     value={confirmPassword}
@@ -189,8 +208,11 @@ export default function UserPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">Role</label>
+                  <label htmlFor="role" className="block text-sm font-medium">
+                    Role
+                  </label>
                   <select
+                    id="role"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
                     className="mt-1 block w-full rounded-md border px-3 py-2"
@@ -220,8 +242,14 @@ export default function UserPage() {
 
               <form onSubmit={handleEditSubmit} className="space-y-4 mt-4">
                 <div>
-                  <label className="block text-sm font-medium">Username</label>
+                  <label
+                    htmlFor="editUsername"
+                    className="block text-sm font-medium"
+                  >
+                    Username
+                  </label>
                   <input
+                    id="editUsername"
                     className="mt-1 block w-full rounded-md border px-3 py-2 bg-gray-100"
                     value={editUsername}
                     readOnly
@@ -229,8 +257,14 @@ export default function UserPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">Role</label>
+                  <label
+                    htmlFor="editRole"
+                    className="block text-sm font-medium"
+                  >
+                    Role
+                  </label>
                   <select
+                    id="editRole"
                     value={editRole}
                     onChange={(e) => setEditRole(e.target.value)}
                     className="mt-1 block w-full rounded-md border px-3 py-2"
@@ -241,10 +275,14 @@ export default function UserPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">
+                  <label
+                    htmlFor="editPassword"
+                    className="block text-sm font-medium"
+                  >
                     Password (opsional)
                   </label>
                   <input
+                    id="editPassword"
                     type="password"
                     className="mt-1 block w-full rounded-md border px-3 py-2"
                     value={editPassword}
@@ -253,10 +291,14 @@ export default function UserPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">
+                  <label
+                    htmlFor="editConfirmPassword"
+                    className="block text-sm font-medium"
+                  >
                     Konfirmasi Password
                   </label>
                   <input
+                    id="editConfirmPassword"
                     type="password"
                     className="mt-1 block w-full rounded-md border px-3 py-2"
                     value={editConfirmPassword}

@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { kecamatan } from "../../../../constants";
 import { ChartEntri } from "./ChartEntri";
 import { ChartMasuk } from "./ChartMasuk";
-import { kecamatan } from "@/constants";
-import { Button } from "@/components/ui/button";
 
 type Props = {
   totalEntri: Record<string, number>;

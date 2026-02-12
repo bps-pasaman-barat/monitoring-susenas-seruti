@@ -1,8 +1,8 @@
-import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/db";
 
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ kecamatan: string }> },
 ) {
   try {
@@ -12,7 +12,6 @@ export async function GET(
       where: {
         kecamatan: {
           equals: kecamatanParam,
-       
         },
       },
       select: { id: true },

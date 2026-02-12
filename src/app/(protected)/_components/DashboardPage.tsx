@@ -1,11 +1,12 @@
 "use client";
 
-import useSWR from "swr";
-import MonitoringCard from "./MonitoringCard";
-import { fetcher } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import useSWR from "swr";
 import { SettingsMenu } from "@/components/SettingsMenu";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { fetcher } from "@/lib/utils";
+import MonitoringCard from "./MonitoringCard";
+
 type KecamatanData = Record<string, number>;
 export type DashboardData = {
   totalSusenasMasuk: KecamatanData;

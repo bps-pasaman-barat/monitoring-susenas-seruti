@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   try {
@@ -13,12 +13,13 @@ export async function GET(request: Request) {
 
     const skip = (page - 1) * limit;
 
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic where clause
     const where: any = {};
-    
+
     if (search) {
       where.nama = { contains: search, mode: "insensitive" };
     }
-    
+
     if (kecamatanId) {
       where.kecamatanId = Number(kecamatanId);
     }
@@ -29,10 +30,7 @@ export async function GET(request: Request) {
         take: limit,
         skip,
         include: { kecamatan: true },
-        orderBy: [
-          { kecamatan: { nama: "asc" } },
-          { nama: "asc" },
-        ],
+        orderBy: [{ kecamatan: { nama: "asc" } }, { nama: "asc" }],
       }),
       prisma.defaultNagari.count({ where }),
     ]);

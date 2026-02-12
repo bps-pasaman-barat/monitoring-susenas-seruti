@@ -1,19 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
-import DashboardLayout from "@/components/dashboard/Layout";
-import { useState } from "react";
-import useSWR, { mutate } from "swr";
-import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import useSWR, { mutate } from "swr";
+import DashboardLayout from "@/components/dashboard/Layout";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog";
 import {
   Table,
@@ -23,7 +24,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { toast } from "sonner";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);

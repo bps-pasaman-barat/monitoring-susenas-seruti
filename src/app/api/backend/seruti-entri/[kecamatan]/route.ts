@@ -1,7 +1,7 @@
+import { type NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@/generated/prisma/client";
 import { slugToTitle } from "@/helper/slug";
 import { prisma } from "@/lib/db";
-import { Prisma } from "@/lib/generated/prisma/client";
-import { NextRequest, NextResponse } from "next/server";
 
 const ORDERABLE_FIELDS = ["nks", "tgl_entri", "nama_petugas_entri"] as const;
 
@@ -27,7 +27,7 @@ export async function GET(
     const orderByField: OrderableField = ORDERABLE_FIELDS.includes(
       orderByParam as OrderableField,
     )
-      ? orderByParam!
+      ? (orderByParam as OrderableField)
       : "nks";
 
     const orderBy: Record<string, "asc" | "desc"> = {

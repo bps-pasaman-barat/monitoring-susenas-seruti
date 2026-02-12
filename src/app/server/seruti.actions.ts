@@ -3,10 +3,10 @@
 import { prisma } from "@/lib/db";
 
 import {
-  SerutiSchemaMasuk,
-  SerutiMasukForm,
+  type SerutiEntriForm,
+  type SerutiMasukForm,
   SerutiSchemaEntri,
-  SerutiEntriForm,
+  SerutiSchemaMasuk,
 } from "@/schema/form.schema";
 
 export async function saveSerutiMasuk(input: SerutiMasukForm) {
@@ -30,7 +30,7 @@ export async function saveSerutiMasuk(input: SerutiMasukForm) {
       message: "Data berhasil disimpan",
       data,
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       success: false,
       message: "Gagal menyimpan data",
@@ -59,7 +59,7 @@ export async function saveSerutiEntri(input: SerutiEntriForm) {
       message: "Data berhasil disimpan",
       data,
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       success: false,
       message: "Gagal menyimpan data",

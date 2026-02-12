@@ -1,29 +1,20 @@
 "use client";
 
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
+  ArrowDown,
+  ArrowUp,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
   Inbox,
   Loader2,
-  ArrowUp,
-  ArrowDown,
   Trash2,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { UploadSusenasEntriResponse } from "@/types";
-import useSWR, { useSWRConfig } from "swr";
 import { toast } from "sonner";
+import useSWR, { useSWRConfig } from "swr";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -34,6 +25,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { UploadSusenasEntriResponse } from "@/types";
+
 
 export default function TableUploadMasukSusenas() {
   const router = useRouter();
@@ -75,7 +76,7 @@ export default function TableUploadMasukSusenas() {
           typeof key === "string" &&
           key.startsWith("/api/backend/uploaded-susenas/masuk"),
       );
-    } catch (err) {
+    } catch (_err) {
       toast.error("Gagal menghapus file");
     }
   }

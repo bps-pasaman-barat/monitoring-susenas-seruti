@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "monitoring",
@@ -9,6 +9,5 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-
   return <div className="mx-auto">{children}</div>;
 }

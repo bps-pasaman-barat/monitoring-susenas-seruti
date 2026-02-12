@@ -1,6 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import type React from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type Session = { isAuth: boolean; userId: string; role: string } | null;
 
@@ -23,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchSession = async () => {
+  const fetchSession = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/session");
@@ -33,16 +40,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         setSession(null);
       }
-    } catch (e) {
+    } catch (_e) {
       setSession(null);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchSession();
-  }, []);
+  }, [fetchSession]);
 
   const logout = async () => {
     await fetch("/api/session/logout", { method: "POST" });

@@ -1,7 +1,7 @@
+import fs from "node:fs";
+import path from "node:path";
+import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { NextRequest, NextResponse } from "next/server";
-import path from "path";
-import fs from "fs";
 
 export async function DELETE(
   _request: NextRequest,

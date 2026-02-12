@@ -1,15 +1,6 @@
 "use client";
 
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { useEffect, useState } from "react";
-import {
   ArrowDown,
   ArrowUp,
   ChevronLeft,
@@ -20,8 +11,17 @@ import {
   Loader2,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { SerutiMasukResponse } from "@/types";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import type { SerutiMasukResponse } from "@/types";
 
 export default function TableSerutiMasuk({ kecamatan }: { kecamatan: string }) {
   const router = useRouter();

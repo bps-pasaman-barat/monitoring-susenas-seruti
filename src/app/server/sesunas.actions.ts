@@ -3,8 +3,8 @@
 import { prisma } from "@/lib/db";
 
 import {
-  SusenasEntriForm,
-  SusenasMasukForm,
+  type SusenasEntriForm,
+  type SusenasMasukForm,
   SusenasMasukSchema,
   SusenasSchemaEntri,
 } from "@/schema/form.schema";
@@ -30,7 +30,7 @@ export async function saveSusenasMasuk(input: SusenasMasukForm) {
       message: "Data berhasil disimpan",
       data,
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       success: false,
       message: "Gagal menyimpan data",
@@ -59,7 +59,7 @@ export async function saveSusenasEntri(input: SusenasEntriForm) {
       message: "Data berhasil disimpan",
       data,
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       success: false,
       message: "Gagal menyimpan data",

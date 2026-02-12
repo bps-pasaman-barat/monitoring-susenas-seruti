@@ -1,18 +1,17 @@
 "use client";
 
-import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-
-import { InputTextField } from "@/components/boilerplate/InputField";
-import { SerutiMasukForm, SerutiSchemaMasuk } from "@/schema/form.schema";
-import { InputDateField } from "@/components/boilerplate/FormDate";
-import { saveSerutiMasuk } from "@/app/server/seruti.actions";
-import { toast } from "sonner";
 import { useTransition } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { saveSerutiMasuk } from "@/app/server/seruti.actions";
+import { InputDateField } from "@/components/boilerplate/FormDate";
+import { InputTextField } from "@/components/boilerplate/InputField";
 import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
 import NagariField from "@/components/boilerplate/NagariField";
 import { UploadDokumenMasukCard } from "@/components/UploadDokumenMasuk";
+import { Button } from "@/components/ui/button";
+import { type SerutiMasukForm, SerutiSchemaMasuk } from "@/schema/form.schema";
 import TableUploadMasukSeruti from "./TableUploadMasukSeruti";
 
 export default function FormSerutiMasuk() {
@@ -48,7 +47,9 @@ export default function FormSerutiMasuk() {
         if (result.errors) {
           Object.values(result.errors)
             .flat()
-            .forEach((err) => toast.error(err));
+            .forEach((err) => {
+              toast.error(err);
+            });
         }
       }
     });

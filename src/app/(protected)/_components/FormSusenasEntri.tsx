@@ -1,17 +1,20 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { SusenasEntriForm, SusenasSchemaEntri } from "@/schema/form.schema";
-import { InputTextField } from "@/components/boilerplate/InputField";
-import { InputDateField } from "@/components/boilerplate/FormDate";
 import { toast } from "sonner";
 import { saveSusenasEntri } from "@/app/server/sesunas.actions";
+import { InputDateField } from "@/components/boilerplate/FormDate";
+import { InputTextField } from "@/components/boilerplate/InputField";
 import { KecamatanSelect } from "@/components/boilerplate/KecamatanField";
 import NagariField from "@/components/boilerplate/NagariField";
 import { UploadDokumenEntriCard } from "@/components/UploadDokumenEntri";
+import { Button } from "@/components/ui/button";
+import {
+  type SusenasEntriForm,
+  SusenasSchemaEntri,
+} from "@/schema/form.schema";
 import TableUploadEntriSusenas from "./TableUploadEntriSusenas";
 
 export default function FormSesunasEntri() {
@@ -46,7 +49,9 @@ export default function FormSesunasEntri() {
         if (result.errors) {
           Object.values(result.errors)
             .flat()
-            .forEach((err) => toast.error(err));
+            .forEach((err) => {
+              toast.error(err);
+            });
         }
       }
     });

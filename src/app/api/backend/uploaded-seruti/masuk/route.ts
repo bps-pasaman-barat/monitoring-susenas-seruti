@@ -1,6 +1,6 @@
+import { type NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/db";
-import { Prisma } from "@/lib/generated/prisma/client";
-import { NextRequest, NextResponse } from "next/server";
 
 const ORDERABLE_FIELDS = ["filename", "createdAt"] as const;
 type OrderableField = (typeof ORDERABLE_FIELDS)[number];
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     const orderByField: OrderableField = ORDERABLE_FIELDS.includes(
       orderByParam as OrderableField,
     )
-      ? orderByParam!
+      ? (orderByParam as OrderableField)
       : "createdAt";
 
     const total = await prisma.uploadedSerutiMasuk.count();

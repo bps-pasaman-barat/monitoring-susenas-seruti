@@ -1,11 +1,11 @@
 "use client";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardPage from "@/app/(protected)/_components/DashboardPage";
-import SesunasPage from "@/app/(protected)/_components/susenasPage";
 import SerutiPage from "@/app/(protected)/_components/SerutiPage";
-import { motion, AnimatePresence } from "framer-motion";
+import SesunasPage from "@/app/(protected)/_components/susenasPage";
 import UploadTemplatePage from "@/app/(protected)/_components/UploadTemplate";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function MainTabs({ role }: { role: string }) {
   const router = useRouter();
