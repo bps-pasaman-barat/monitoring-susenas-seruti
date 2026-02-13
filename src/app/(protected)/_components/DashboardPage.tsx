@@ -6,6 +6,7 @@ import { SettingsMenu } from "@/components/SettingsMenu";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetcher } from "@/lib/utils";
 import MonitoringCard from "./MonitoringCard";
+import { useSession } from "@/hooks/useSession";
 
 type KecamatanData = Record<string, number>;
 export type DashboardData = {
@@ -24,7 +25,8 @@ export type DashboardApiResponse = {
   data: DashboardData;
   uploaded: DataUploaded;
 };
-export default function DashboardPage({ role }: { role: string }) {
+export default function DashboardPage() {
+  const session = useSession();
   const interval = 5000;
   const { data, error, isLoading } = useSWR<DashboardApiResponse>(
     "/api/backend",
@@ -40,7 +42,15 @@ export default function DashboardPage({ role }: { role: string }) {
     <div className="space-y-8">
       <div className="flex items-center justify-between border-b">
         <h1 className="text-2xl font-bold">Dashboard</h1>
-        <SettingsMenu role={role} />
+        {session ? (
+          <SettingsMenu role={session?.role} />
+        ) : (
+          <>
+            <div className="flex items-center justify-center p-6">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          </>
+        )}
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">

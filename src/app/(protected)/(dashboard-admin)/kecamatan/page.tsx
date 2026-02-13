@@ -24,6 +24,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useSession } from "@/hooks/useSession";
+import { redirect } from "next/navigation";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -37,6 +39,10 @@ const fetcher = async (url: string) => {
 };
 
 export default function KecamatanPage() {
+  const session = useSession()
+  if (session?.role !=="admin"){
+    redirect("/")
+  }
   const { data: kecamatan, isLoading } = useSWR<any[]>(
     "/api/default-kecamatan",
     fetcher,
@@ -158,7 +164,7 @@ export default function KecamatanPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {isLoading ? (
+              {!kecamatan ? (
                 <TableRow>
                   <TableCell colSpan={3} className="h-24 text-center">
                     <div className="flex justify-center items-center gap-2 text-muted-foreground">
@@ -167,7 +173,7 @@ export default function KecamatanPage() {
                     </div>
                   </TableCell>
                 </TableRow>
-              ) : kecamatan?.length === 0 ? (
+              ) : kecamatan.length === 0 ? (
                 <TableRow>
                   <TableCell
                     colSpan={3}
@@ -177,7 +183,7 @@ export default function KecamatanPage() {
                   </TableCell>
                 </TableRow>
               ) : (
-                kecamatan?.map((k, i) => (
+                kecamatan.map((k, i) => (
                   <TableRow key={k.id}>
                     <TableCell>{i + 1}</TableCell>
                     <TableCell>{k.nama}</TableCell>

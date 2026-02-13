@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 "use client";
 import { Edit, Trash2 } from "lucide-react";
 import { type FormEvent, useState } from "react";
@@ -33,6 +31,7 @@ type UsersResp = {
 };
 
 export default function UserPage() {
+
   const fetcher = (url: string) =>
     fetch(url)
       .then((res) => res.json())

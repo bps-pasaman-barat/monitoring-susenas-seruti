@@ -7,7 +7,7 @@ import SesunasPage from "@/app/(protected)/_components/susenasPage";
 import UploadTemplatePage from "@/app/(protected)/_components/UploadTemplate";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function MainTabs({ role }: { role: string }) {
+export default function MainTabs() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -98,7 +98,7 @@ export default function MainTabs({ role }: { role: string }) {
             exit="exit"
             transition={{ duration: 0.25, ease: "easeIn" }}
           >
-            <DashboardPage role={role} />
+            <DashboardPage />
           </motion.div>
         )}
 

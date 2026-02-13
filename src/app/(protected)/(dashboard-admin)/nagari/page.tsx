@@ -36,6 +36,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useSession } from "@/hooks/useSession";
+import { redirect } from "next/navigation";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -50,6 +52,10 @@ const fetcher = async (url: string) => {
 };
 
 export default function NagariPage() {
+  const session = useSession();
+  if (session?.role !== "admin") {
+    redirect("/");
+  }
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500);
@@ -235,7 +241,7 @@ export default function NagariPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {isLoading ? (
+            {!list ? (
               <TableRow>
                 <TableCell colSpan={4} className="h-24 text-center">
                   <div className="flex justify-center items-center gap-2 text-muted-foreground">

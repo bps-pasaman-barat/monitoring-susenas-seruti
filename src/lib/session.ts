@@ -97,7 +97,8 @@ export async function deleteSession() {
 export async function verifySession() {
   const cookie = (await cookies()).get("session")?.value;
   const session = await decrypt(cookie);
-
+  
+  console.log(session)
   if (!session?.userId) {
     return null;
   }
