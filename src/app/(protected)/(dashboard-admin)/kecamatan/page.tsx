@@ -39,9 +39,9 @@ const fetcher = async (url: string) => {
 };
 
 export default function KecamatanPage() {
-  const session = useSession()
-  if (session?.role !=="admin"){
-    redirect("/")
+  const session = useSession();
+  if (session?.role !== "admin") {
+    redirect("/");
   }
   const { data: kecamatan, isLoading } = useSWR<any[]>(
     "/api/default-kecamatan",

@@ -19,7 +19,7 @@ export function useDataSubmitted(url: string) {
     };
 
     fetchData();
-  }, [url]); 
+  }, [url]);
 
   const refetch = async () => {
     setLoading(true);

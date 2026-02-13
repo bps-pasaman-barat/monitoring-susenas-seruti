@@ -15,7 +15,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     fetch("/api/session")
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(setSession)
       .catch(() => setSession(null));
   }, []);

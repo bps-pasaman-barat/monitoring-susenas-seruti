@@ -14,7 +14,7 @@ export async function login(
     username: formData.get("username"),
     password: formData.get("password"),
   });
-console.log(validatedFields)
+  console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,

@@ -2,9 +2,9 @@ import { LoginForm } from "@/components/LoginForm";
 import { verifySession } from "@/lib/session";
 import { redirect } from "next/navigation";
 export default async function LoginPage() {
-  const session = await verifySession()
-  if (session){
-    redirect("/")
+  const session = await verifySession();
+  if (session) {
+    redirect("/");
   }
 
   return (
@@ -13,5 +13,5 @@ export default async function LoginPage() {
         <LoginForm />
       </div>
     </div>
-  )
+  );
 }

@@ -1,9 +1,24 @@
 import bcrypt from "bcryptjs";
 import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { verifySession } from "@/lib/session";
 
 export async function GET(_request: NextRequest) {
   try {
+    const session = await verifySession();
+    if (!session) {
+      return NextResponse.json({
+        error: "you have not access to this resource",
+        status: 403,
+      });
+    }
+    if (session.role !== "admin") {
+      return NextResponse.json({
+        error: "you have not access to this resource you are not admin btw",
+        status: 403,
+      });
+    }
+
     const totalUser = await prisma.user.findMany({
       select: {
         id: true,

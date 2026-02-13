@@ -35,7 +35,6 @@ import {
 } from "@/components/ui/table";
 import { UploadSusenasEntriResponse } from "@/types";
 
-
 export default function TableUploadEntriSeruti() {
   const router = useRouter();
   const searchParams = useSearchParams();
